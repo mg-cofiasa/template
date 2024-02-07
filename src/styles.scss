@@ -1,1 +1,142 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+
+
+//@import "primeng/resources/themes/bootstrap4-light-blue/theme.css";
+//@import "primeng/resources/themes/bootstrap4-light-purple/theme.css";
+//@import "primeng/resources/themes/bootstrap4-dark-blue/theme.css";
+//@import "primeng/resources/themes/bootstrap4-dark-purple/theme.css";
+//@import "primeng/resources/themes/md-light-indigo/theme.css";
+//@import "primeng/resources/themes/md-light-deeppurple/theme.css";
+//@import "primeng/resources/themes/md-dark-indigo/theme.css";
+//@import "primeng/resources/themes/md-dark-deeppurple/theme.css";
+//@import "primeng/resources/themes/mdc-light-indigo/theme.css";
+//@import "primeng/resources/themes/mdc-light-deeppurple/theme.css";
+//@import "primeng/resources/themes/mdc-dark-indigo/theme.css";
+//@import "primeng/resources/themes/mdc-dark-deeppurple/theme.css";
+//@import "primeng/resources/themes/fluent-light/theme.css";
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+//@import "primeng/resources/themes/lara-light-indigo/theme.css";
+//@import "primeng/resources/themes/lara-light-purple/theme.css";
+//@import "primeng/resources/themes/lara-light-teal/theme.css";
+//@import "primeng/resources/themes/lara-dark-blue/theme.css";
+//@import "primeng/resources/themes/lara-dark-indigo/theme.css";
+//@import "primeng/resources/themes/lara-dark-purple/theme.css";
+//@import "primeng/resources/themes/lara-dark-teal/theme.css";
+//@import "primeng/resources/themes/soho-light/theme.css";
+//@import "primeng/resources/themes/soho-dark/theme.css";
+//@import "primeng/resources/themes/viva-light/theme.css";
+//@import "primeng/resources/themes/viva-dark/theme.css";
+//@import "primeng/resources/themes/mira/theme.css";
+//@import "primeng/resources/themes/nano/theme.css";
+//@import "primeng/resources/themes/saga-blue/theme.css";
+//@import "primeng/resources/themes/saga-green/theme.css";
+//@import "primeng/resources/themes/saga-orange/theme.css";
+//@import "primeng/resources/themes/saga-purple/theme.css";
+//@import "primeng/resources/themes/vela-blue/theme.css";
+//@import "primeng/resources/themes/vela-green/theme.css";
+//@import "primeng/resources/themes/vela-orange/theme.css";
+//@import "primeng/resources/themes/vela-purple/theme.css";
+//@import "primeng/resources/themes/arya-blue/theme.css";
+//@import "primeng/resources/themes/arya-green/theme.css";
+//@import "primeng/resources/themes/arya-orange/theme.css";
+//@import "primeng/resources/themes/arya-purple/theme.css";
+//@import "primeng/resources/themes/nova/theme.css";
+//@import "primeng/resources/themes/nova-alt/theme.css";
+//@import "primeng/resources/themes/nova-accent/theme.css";
+//@import "primeng/resources/themes/luna-amber/theme.css";
+//@import "primeng/resources/themes/luna-blue/theme.css";
+//@import "primeng/resources/themes/luna-green/theme.css";
+//@import "primeng/resources/themes/luna-pink/theme.css";
+//@import "primeng/resources/themes/rhea/theme.css";
+
+
+
+
+.badge-success-local{
+	background-color: #e8fef2 !important;
+	color: #51cd89; 
+  padding: 6px !important;
+	min-width: 120px !important;
+  justify-content: center !important;
+	font-size: 1em !important;
+	border: 1px solid #caf5de !important;
+}
+
+.badge-danger-local{
+	background-color: #fcf0f4 !important;
+	color: #f1436e;
+  padding: 6px !important;
+	min-width: 120px !important;
+  justify-content: center !important;
+  font-weight: normal;
+}
+
+.badge-danger-local-wb{
+  @extend .badge-danger-local;
+	border: 1px solid #f7dee6 !important;
+}
+
+.badge-info-local{
+	background-color: #f8f5ff !important;
+	color: #7239ea; 
+  padding: 6px !important;
+	min-width: 120px !important;
+  justify-content: center !important;
+  font-weight: normal;
+}
+
+.badge-info-local-wb{
+  @extend .badge-info-local;
+	border: 1px solid #b79af5 !important;  
+}
+
+.badge-primary-local{
+	background-color: #f1faff !important;
+	color: #3e97ff; 
+  padding: 6px !important;
+	min-width: 120px !important;
+  justify-content: center !important;	
+  font-weight: normal;
+}
+
+.badge-primary-local-wb{
+  @extend .badge-primary-local;
+	border: 1px solid #82bcff !important;
+}
+
+.badge-secondary-local{
+	background-color: #f9f9f9 !important;
+	color: #5e5e5e; 
+  padding: 6px !important;
+	min-width: 120px !important;
+  justify-content: center !important;	
+  font-weight: normal;
+}
+
+.badge-secondary-local-wb{
+  @extend .badge-primary-local;
+	border: 1px solid #5e5e5e !important;
+}
+
+
+// Varios
+.w-100-vh{
+	min-height: 100vh !important;
+}
+
+// Background
+.bg-login{
+	background-color: #f5f8fa !important;
+}
+.bg-img-login{
+	background-image: url("./assets/imgs/img_pradesa_cofiasa.jpg"); background-repeat: no-repeat; background-position: center; background-size: cover; min-height: 100px;
+}
+
+.bg-login-transparent{
+	background-color: #f5f8facb !important;
+}
+

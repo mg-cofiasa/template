@@ -1,6 +1,26 @@
-<app-main-header></app-main-header>
+<!-- <app-main-header></app-main-header>
 <app-main-sidebar></app-main-sidebar>
 <app-content-wrapper></app-content-wrapper>
 <app-control-sidebar></app-control-sidebar>
 <app-main-footer></app-main-footer>
-<router-outlet></router-outlet>
+<router-outlet></router-outlet> -->
+
+<div *ngIf="isLoggedIn; else noLogueado">
+  <app-main-header></app-main-header>
+  <app-main-sidebar></app-main-sidebar>
+  
+  <div class="content-wrapper">
+    <div class="content">
+      <div class="container-fluid pt-2">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  
+  <app-main-footer></app-main-footer>
+  <app-control-sidebar></app-control-sidebar>
+</div>
+
+<ng-template #noLogueado>
+  <router-outlet></router-outlet>
+</ng-template>

@@ -1,0 +1,93 @@
+<div class="container-fluid bg-login">
+  <div class="row flex-container" >
+    <div class="col-xs-12 col-lg-6 order-2 order-lg-1 m-0 p-0">
+      <div class="row justify-content-center align-items-center w-100-vh">
+        <div class="col-xs-2">&nbsp;</div>
+        <div class="col-xs-auto p-0 m-2">
+          <div class="card border-0 shadow">
+            <div class="card-header border-bottom pl-4 pr-4 bg-login-transparent">
+              <h3>Iniciar sesión</h3>
+            </div>
+            <div class="card-body ml-4 mr-4 mt-0">
+              <div class="row w-100 text-right pb-4">
+                <div class="col-md-12 pl-4 pb-0">
+                  <span class="badge badge-info-local">Utiliza tu usuario y contraseña de <strong>Intelisis</strong> para iniciar</span>
+                </div>
+              </div>        
+              <form [formGroup]="formLogin" autocomplete="off">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="flex flex-wrap justify-content-center gap-3">
+                      <label for="cboEmpresa" class="m-0 pl-2 text-secondary font-weight-normal">Empresa *</label>
+                      <p-dropdown formControlName="cboEmpresa" id="cboEmpresa" class="p-inputtext-sm" styleClass="w-100" [options]="cboEmpresaData" emptyMessage="No hay elementos" optionLabel="nombre" [selectOnFocus]="true"></p-dropdown>
+                    </div>
+                    <label for="cboEmpresa" class="font-weight-normal" styleClass="w-100">
+                      <span *ngIf="form['cboEmpresa'].invalid && form['cboEmpresa'].dirty" class="text-danger small pl-2">
+                        Empresa es requerida *
+                      </span>
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="flex flex-wrap justify-content-center gap-3">
+                      <label for="txtUsuario" class="m-0 pl-2 text-secondary font-weight-normal">Usuario *</label>
+                      <span class="p-input-icon-right w-100">
+                        <i class="pi pi-exclamation-circle text-danger" *ngIf="form['txtUsuario'].invalid === true && form['txtUsuario'].dirty === true"></i>
+                        <i class="pi pi-check-circle text-success" *ngIf="form['txtUsuario'].valid === true && form['txtUsuario'].dirty === true"></i>
+                        <input formControlName="txtUsuario" id="txtUsuario" type="text" autofocus class="p-inputtext-sm w-100" pInputText (keydown.enter)="ValidaAcceso()">                    
+                      </span>
+                    </div>
+                    <label for="txtUsuario" class="font-weight-normal">
+                      <span *ngIf="form['txtUsuario'].invalid && form['txtUsuario'].dirty" class="text-danger small pl-2">
+                        Usuario es requerido *
+                      </span>
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="flex flex-wrap justify-content-center gap-3">
+                      <label for="txtPassword" class="m-0 pl-2 text-secondary font-weight-normal">Contraseña *</label>
+                      <span class="p-input-icon-right w-100">
+                        <i class="pi pi-exclamation-circle text-danger" *ngIf="form['txtPassword'].invalid === true && form['txtPassword'].dirty === true"></i>
+                        <i class="pi pi-check-circle text-success" *ngIf="form['txtPassword'].valid === true && form['txtPassword'].dirty === true"></i>
+                        <input formControlName="txtPassword" type="password" id="txtPassword" class="p-inputtext-sm w-100" pInputText (keydown.enter)="ValidaAcceso()">                    
+                      </span>
+                    </div>
+                    <label for="txtPassword" class="font-weight-normal">
+                      <span *ngIf="form['txtPassword'].invalid && form['txtPassword'].dirty" class="text-danger small pl-2">
+                        Contraseña es requerida *
+                      </span>
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 p-fluid">
+                    <p-button [disabled]="!formLogin.valid" styleClass="p-button-raised p-button-primary rounded" (onClick)="ValidaAcceso()">
+                      <div class="text-center w-100">
+                        <span *ngIf="awaitingRequest===false; else awaitingRequestTemplate">
+                          Iniciar sesión
+                        </span>
+                        <ng-template #awaitingRequestTemplate>
+                          Espere un momento...
+                          <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                        </ng-template>
+                      </div>
+                    </p-button>
+                  </div>
+                </div>
+              </form>  
+            </div>
+            <div class="card-footer">
+              <div class="text-right">
+                <span class="badge badge-secondary-local"> * Campos requeridos</span>
+              </div>
+            </div>
+          </div>          
+        </div>
+      </div>    
+    </div>
+    <div class="col-xs-12 col-lg-6 order-1 order-lg-2 w-100 shadow bg-img-login">&nbsp;</div>
+  </div>
+</div>

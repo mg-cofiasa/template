@@ -7,6 +7,7 @@ import { ControlSidebarComponent } from './components/adminlte/control-sidebar/c
 import { MainHeaderComponent } from './components/adminlte/main-header/main-header.component';
 import { MainFooterComponent } from './components/adminlte/main-footer/main-footer.component';
 import { MainSidebarComponent } from './components/adminlte/main-sidebar/main-sidebar.component';
+import { PrimeNGModule } from './prime-ng.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { MainSidebarComponent } from './components/adminlte/main-sidebar/main-si
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,PrimeNGModule
   ]
 })
 export class SharedModule { }
