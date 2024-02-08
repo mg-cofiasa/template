@@ -20,52 +20,108 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+          <ng-container *ngFor="let menu of menuLateral">
+            <ng-container *ngIf="menu.Aplicacion === 'Administrador'">
+              <ng-container *ngFor="let submenu of menu.Menu">
+                <ng-container *ngIf="submenu.Contenedor === undefined">
+                  <li class="nav-item" *ngFor="let seccion of submenu.Submenu">
+                    <a routerLink="./dashboard" routerLinkActive="active" class="nav-link">
+                      <i class="nav-icon {{seccion.Icono}}"></i>
+                      <p>
+                        {{seccion.Seccion}}
+                      </p>
+                    </a>
+                  </li>                
+                </ng-container>
+                <li class="nav-item" *ngIf="submenu.Contenedor">
+                  <a href="#" class="nav-link">
+                    <i class="nav-icon {{submenu.Icono}}"></i>
+                    <p>
+                      {{submenu.Contenedor}}
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item" *ngFor="let seccion of submenu.Submenu">
+                      <a href="pages/widgets.html" class="nav-link">
+                        <i class="nav-icon {{seccion.Icono}}"></i>
+                        <p>
+                          {{seccion.Seccion}}
+                        </p>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="menu.Aplicacion !== 'Administrador'">
+              <li class="nav-item">
+                <a href="pages/widgets.html" class="nav-link">
+                  <i class="nav-icon {{menu.Icono}}"></i>
+                  <p>
+                    {{menu.Aplicacion}}
+                    <i class="pi pi-link right"></i>
+                  </p>
+                </a>
+              </li>
+            </ng-container>
+          </ng-container>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
+            <a routerLink="dashboard" routerLinkActive="active" class="nav-link">
+              <i class="nav-icon fa-solid fa-arrow-right-from-bracket"></i>
               <p>
-                Dashboard
+                Cerrar sesión
               </p>
             </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-chart-pie"></i>
-              <p>
-                Charts
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="pages/charts/chartjs.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>ChartJS</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Flot</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/inline.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inline</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/charts/uplot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>uPlot</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+          </li>          
         </ul>
+
+<!-- Este menu comentado, muestra todas las aplicaciones con sus respectivas opciones -->
+<!--       <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <ng-container *ngFor="let menu of menuLateral">
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon"></i>
+                <p>
+                  {{menu.Aplicacion}}
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <ng-container class="nav-item" *ngFor="let submenu of menu.Menu">
+                  <li class="nav-item" *ngIf="submenu.Contenedor === undefined">
+                    <a href="pages/widgets.html" class="nav-link">
+                      <i class="nav-icon {{submenu.Submenu[0].Icono}}"></i>
+                      <p>
+                        {{submenu.Submenu[0].Seccion}}
+                      </p>
+                    </a>
+                  </li>
+                  <li class="nav-item" *ngIf="submenu.Contenedor">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon {{submenu.Icono}}"></i>
+                      <p>
+                        {{submenu.Contenedor}}
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item" *ngFor="let seccion of submenu.Submenu">
+                        <a href="pages/widgets.html" class="nav-link">
+                          <i class="nav-icon {{seccion.Icono}}"></i>
+                          <p>
+                            {{seccion.Seccion}}
+                          </p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>                  
+                </ng-container>
+              </ul>
+            </li>
+          </ng-container>
+        </ul>-->        
       </nav>
       <!-- /.sidebar-menu -->
     </div>

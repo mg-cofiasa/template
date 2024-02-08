@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./main-footer.component.scss']
 })
 export class MainFooterComponent {
-
+  public fecha: Date = new Date();
 }
