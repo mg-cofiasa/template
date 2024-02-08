@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+
 import { InfoUsuario } from 'src/app/auth/interfaces/token-response';
 
 import { TokenService } from 'src/app/auth/services/token.service';
+import { UsuarioMenu } from 'src/app/shared/interfaces/shared';
 
 @Component({
   selector: 'app-main-sidebar',
@@ -10,6 +12,7 @@ import { TokenService } from 'src/app/auth/services/token.service';
 })
 export class MainSidebarComponent {
   public infoUsuario: InfoUsuario = <InfoUsuario>{};
+  public menuLateral: UsuarioMenu[] = [];
   
   constructor(private tokenService: TokenService){
     this.ObtenerInfoUsuario();
@@ -17,6 +20,9 @@ export class MainSidebarComponent {
 
   public ObtenerInfoUsuario(){
     this.infoUsuario = this.tokenService.ObtenerInfoUsuario();
+
+    this.menuLateral = JSON.parse(this.infoUsuario.Menu)
+
     if (this.infoUsuario.Nombre.indexOf("(")){
       this.infoUsuario.Nombre = this.infoUsuario.Nombre.substring(this.infoUsuario.Nombre.indexOf("(") + 1, this.infoUsuario.Nombre.indexOf(")"));
     }
