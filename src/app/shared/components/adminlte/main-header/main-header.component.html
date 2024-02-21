@@ -1,5 +1,5 @@
 <!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-white navbar-light shadow-sm">
   <!-- Left navbar links -->
   <ul class="navbar-nav">
     <li class="nav-item">
@@ -16,9 +16,14 @@
       <p-dialog header="Header" styleClass="shadow-none" [modal]="true" [style]="{'top':'50px'}" [(visible)]="mostrarVentanaCerrarsesion" [position]="'topright'" appendTo="body" [closeOnEscape]="true" [dismissableMask]="true">
         <ng-template pTemplate="headless" class="p-0">
           <div class="shadow bg-white rounded">
-            <div class="row p-2" style="width: 300px !important;">
+            <div class="row p-2 ancho-cerrar-sesion">
               <div class="col-md-4 d-flex w-100 align-items-center justify-content-center p-0 m-0">
-                <img alt="Imagen" class="rounded" style="width: 50px;" [src]="'http://172.16.1.28/FotosRH/' + infoUsuario.UrlFoto" onerror="this.src='./assets/media/avatars/blank.png'" />
+                <span *ngIf="infoUsuario.UrlFoto; else SinFoto">
+                  <img alt="Imagen" class="rounded ancho-usuario-imagen" [src]="'http://172.16.1.28/FotosRH/' + infoUsuario.UrlFoto" />
+                </span>
+                <ng-template #SinFoto>
+                  <img src="assets/imgs/no_photo_secondary_01.png" class="rounded ancho-usuario-imagen" alt="User Image">
+                </ng-template>                
               </div>
               <div class="col-md-8">
                 <div class="border-bottom">

@@ -1,0 +1,497 @@
+<div>
+  <form [formGroup]="formBusqueda">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="pl-4 pr-4 shadow rounded titulo-principal-borde bg-white">
+          <div class="text-white titulo-principal float-end">
+            <span class="pl-2">Filtros de búsqueda</span>
+          </div>
+          
+          <div class="row pt-2 mt-2"><!-- Ejerciccio, periodo, zona, plaza, sucursal -->
+            <div class="col-md-2">
+              <div class="form-group">
+                <span class="p-float-label p-fluid">
+                  <p-dropdown formControlName="cboTipoEjercicio" [options]="cboTipoEjercicioData" placeholder="Tipo ejercicio" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true" (onChange)="GetDatosGraficas('cboTipoEjercicio', $event, '')"></p-dropdown>
+                  <label class="font-weight-normal">Tipo ejercicio</label>
+                </span>
+              </div>
+            </div>            
+            <div class="col-md-2">
+              <div class="form-group" *ngIf="form['cboTipoEjercicio'].value !== null && form['cboTipoEjercicio'].value.Id === 2">
+                <span class="p-float-label p-fluid">
+                  <p-dropdown formControlName="cboPeriodo" [options]="cboPeriodoData" placeholder="Seleccionar periodo" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true" (onChange)="GetDatosGraficas('cboPeriodo', $event, '')"></p-dropdown>
+                  <label class="font-weight-normal">Seleccionar periodo</label>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <span class="p-float-label p-fluid">
+                  <p-dropdown formControlName="cboZona" [options]="cboZonaData" placeholder="Seleccionar zona" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true" (onChange)="GetDatosGraficas('cboZona', $event, '')"></p-dropdown>
+                  <label class="font-weight-normal">Seleccionar zona</label>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <span class="p-float-label p-fluid">
+                  <p-dropdown formControlName="cboPlaza" [options]="cboPlazaData" placeholder="Seleccionar plaza" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true" (onChange)="GetDatosGraficas('cboPlaza', $event, '')"></p-dropdown>
+                  <label class="font-weight-normal">Seleccionar plaza</label>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <span class="p-float-label p-fluid">
+                  <p-dropdown formControlName="cboSucursal" [options]="cboSucursalData" placeholder="Seleccionar sucursal" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true" (onChange)="GetDatosGraficas('cboSucursal', $event, '')"></p-dropdown>
+                  <label class="font-weight-normal">Seleccionar sucursal</label>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row pt-2 mt-2"><!-- Segmento, concepto, categoría -->
+            <div class="col-md-3">
+              <div class="form-group">
+                <span class="p-float-label p-fluid">
+                  <p-dropdown formControlName="cboSegmento" [options]="cboSegmentoData" placeholder="Seleccionar segmento" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true" (onChange)="GetDatosGraficas('cboSegmento', $event, '')"></p-dropdown>
+                  <label class="font-weight-normal">Seleccionar segmento</label>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <span class="p-float-label p-fluid">
+                  <p-dropdown formControlName="cboConceptoPago" [options]="cboConceptoPagoData" placeholder="Seleccionar concepto de pago" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true" (onChange)="GetDatosGraficas('cboConceptoPago', $event, '')"></p-dropdown>
+                  <label class="font-weight-normal">Seleccionar concepto de pago</label>
+                </span>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group" *ngIf="actualGraficaTabla === 'tabla'">
+                <span class="p-float-label p-fluid">
+                  <p-dropdown formControlName="cboCategoria" [options]="cboCategoriaData" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" (onChange)="GetDatosGraficas('cboCategoria', $event, '')"></p-dropdown>
+                  <label class="font-weight-normal">Seleccionar categoría</label>
+                </span>
+              </div>          
+            </div>
+            <div class="col-md-3">&nbsp;</div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group h-100">
+                    <span class="h-100 d-flex align-items-center">
+                      <p-checkbox class="pr-2" formControlName="chkProyeccionUtilidad" [binary]="true" inputId="chkProyeccionUtilidad" (onChange)="GetDatosGraficas('actualizarDatos', $event, '')"></p-checkbox>
+                      <label class="p-0 m-0 font-weight-normal" for="chkProyeccionUtilidad" role="button">Proyección utilidad de operación</label>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="p-fluid">
+                    <p-button label="Actualizar" styleClass="p-button-sm rounded" class="d-flex justify-content-end " (onClick)="GetDatosGraficas('actualizarDatos', $event, '')"></p-button>
+                  </div>              
+                </div>
+                <div class="col-md-6">
+                  <div class="p-fluid">
+                    <p-button label="Cambiar vista" styleClass="p-button-sm rounded" class="d-flex justify-content-end" (onClick)="GetDatosGraficas('cboCategoria', $event, actualGraficaTabla)"></p-button>
+                  </div>              
+                </div>
+              </div>
+            </div>            
+          </div>
+
+          <p-divider></p-divider>
+          <div class="row"><!-- Última actualización, fórmulas, condiciones de colores y descargar excel -->
+            <div class="col-md-6 d-flex align-items-center">
+              <div *ngIf="form['cboPeriodo'].value">
+                <span class="text-secondary">Última actualización de información:</span>&nbsp;{{actualizacionInformacion | date: 'dd/MM/yyyy, hh:mm:ss a'}}
+              </div>
+            </div>
+            <div class="col-md-6 text-right" *ngIf="!(mostrarGraficas === true && form['chkProyeccionUtilidad'].value === true)">
+              <p-button label="Condiciones de colores" icon="pi pi-link" [link]="true" (onClick)="OcultarDialogs('condiciones')"></p-button>
+              <p-button label="Fórmulas" icon="pi pi-link" [link]="true" (onClick)="OcultarDialogs('formulas')"></p-button>
+              <span *ngIf="tituloGraficasTablas.length !== 0" (click)="DescargarExcel()">
+                <p-button label="Descargar excel" icon="pi pi-download" [link]="true"></p-button>
+              </span>            
+            </div>            
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-12">
+            <div *ngIf="tituloGraficasTablas.length !== 0">
+              {{tituloGraficasTablas}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div [ngClass]="mostrarGraficas === true ? 'mostrar-graficas' : 'ocultar-graficas'">
+  <div class="row pt-4" *ngIf="form['chkProyeccionUtilidad'].value === false">
+    <div class="col-md-6">
+      <div class="shadow rounded bg-white borde-grafica-01 dimensiones-grafica">
+        <highcharts-chart [Highcharts]="Highcharts" [options]="ventaEnDineroGrafica" class="estilo-grafica dimensiones-grafica"></highcharts-chart>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="shadow rounded bg-white borde-grafica-01 dimensiones-grafica">
+        <highcharts-chart [Highcharts]="Highcharts" [options]="ventaEnToneladasGrafica" class="estilo-grafica dimensiones-grafica"></highcharts-chart>
+      </div>
+    </div>
+  </div>
+
+  <div class="row pt-4" *ngIf="form['chkProyeccionUtilidad'].value === false">
+    <div class="col-md-6">
+      <div class="shadow rounded bg-white borde-grafica-02 dimensiones-grafica">
+        <highcharts-chart [Highcharts]="Highcharts" [options]="utilidadEnImporteGrafica" class="estilo-grafica dimensiones-grafica"></highcharts-chart>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="shadow rounded bg-white borde-grafica-02 dimensiones-grafica">
+        <highcharts-chart [Highcharts]="Highcharts" [options]="margenGrafica" class="estilo-grafica dimensiones-grafica"></highcharts-chart>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="form['chkProyeccionUtilidad'].value === true">
+    <div class="row pt-4">
+      <div class="col-md-4">
+        <div class="shadow rounded bg-white borde-grafica-02 dimensiones-grafica">
+          <highcharts-chart *ngIf="actualizarGraficaProyeccion === true" [Highcharts]="Highcharts" [options]="utilidadBrutaGrafica" class="estilo-grafica dimensiones-grafica"></highcharts-chart>
+        </div>
+      </div>    
+      <div class="col-md-4">
+        <div class="shadow rounded bg-white borde-grafica-02 dimensiones-grafica">
+          <highcharts-chart *ngIf="actualizarGraficaProyeccion === true" [Highcharts]="Highcharts" [options]="utilidadOperacionGrafica" class="estilo-grafica dimensiones-grafica"></highcharts-chart>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="shadow rounded bg-white borde-grafica-02 dimensiones-grafica">
+          <highcharts-chart *ngIf="actualizarGraficaProyeccion === true" [Highcharts]="Highcharts" [options]="faltantePuntoEquilibrioGrafica" class="estilo-grafica dimensiones-grafica"></highcharts-chart>
+        </div>
+      </div>
+    </div>
+    <div class="row pt-4">
+      <div class="col-md-4"></div>    
+      <div class="col-md-4">
+        <div class="shadow rounded bg-white borde-grafica-02 dimensiones-grafica">
+          <highcharts-chart [Highcharts]="Highcharts" [options]="mezclaGrafica" class="estilo-grafica dimensiones-grafica"></highcharts-chart>
+        </div>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="mostrarTabla === true" class="p-2 shadow rounded titulo-principal-borde bg-white mt-4">
+  <p-table [value]="(tablaData)" selectionMode="single" [rowHover]="true" [scrollable]="true" scrollHeight="490px" rowGroupMode="rowspan" [groupRowsBy]="tablaAgruparPor" styleClass="p-datatable-gridlines">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pFrozenColumn class="text-center estilo-columna-Familia small">{{tituloColumnaTabla}}</th>
+        <th class="text-center estilo-columna-Familia small">Nombre</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-Familia' : ''">{{form['chkProyeccionUtilidad'].value === false ? "Segmento" : "Margen %"}}</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA' : ''" *ngIf="(form['cboTipoEjercicio'].value.Id === 2 && form['cboPeriodo'].value !== null && form['cboPeriodo'].value.Nombre === periodoActual) || form['chkProyeccionUtilidad'].value === true || form['cboTipoEjercicio'].value.Id === 1">{{form['chkProyeccionUtilidad'].value === false ? "VTA Miles Hoy" : "Venta toneladas"}}</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA' : ''">{{form['chkProyeccionUtilidad'].value === false ? "VTA Miles" : "Venta miles"}}</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA' : ''">{{form['chkProyeccionUtilidad'].value === false ? "Ppto Miles" : "Utilidad bruta miles"}}</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA' : ''">{{form['chkProyeccionUtilidad'].value === false ? "Cumpl" : "Gastos mes"}}</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA' : ''">{{form['chkProyeccionUtilidad'].value === false ? "Tend VTA" : "Utilidad de operación"}}</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA' : ''">{{form['chkProyeccionUtilidad'].value === false ? "% Tend" : "Faltante punto equilibrio"}}</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA-Ton' : ''" *ngIf="(form['cboTipoEjercicio'].value.Id === 2 && form['cboPeriodo'].value !== null && form['cboPeriodo'].value.Nombre === periodoActual) || form['chkProyeccionUtilidad'].value === true || form['cboTipoEjercicio'].value.Id === 1">{{form['chkProyeccionUtilidad'].value === false ? "VTA Ton Hoy" : "Mezcla otros aceros"}}</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA-Ton' : ''">{{form['chkProyeccionUtilidad'].value === false ? "VTA Ton" : "Mezcla polvos"}}</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA-Ton' : ''">{{form['chkProyeccionUtilidad'].value === false ? "Ppto Ton" : "Mezcla varilla"}}</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA-Ton' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">Cumpl</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA-Ton' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">Tend Ton</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA-Ton' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">% Tend</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-Utilidad' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">Util. Miles</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-Utilidad' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">Ppto Util.</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-Utilidad' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">Cumpl</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-Utilidad' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">Tend Util</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-Utilidad' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">% Tend</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-Margen' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">Margen</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-Margen' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">Mrg Ppto</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-Margen' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">Cumpl</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-customer let-rowgroup="rowgroup" let-rowspan="rowspan">
+      <tr class="small ancho-columna-tabla p-0 m-0" [pSelectableRow]="customer">
+        <td pFrozenColumn class="text-center estilo-columna-Familia" *ngIf="rowgroup" [attr.rowspan]="rowspan">
+          <span *ngIf="form['chkProyeccionUtilidad'].value === false">
+            <span class="text-white">{{customer.Orden}}</span>
+          </span>
+          <span *ngIf="form['chkProyeccionUtilidad'].value === true">
+            {{customer.sucursal}}
+          </span>  
+        </td>
+        <td class="text-center estilo-columna-Familia">
+          <span *ngIf="form['chkProyeccionUtilidad'].value === false">
+            {{customer.NombreSucursal}}
+          </span>
+          <span *ngIf="form['chkProyeccionUtilidad'].value === true">
+            {{customer.nombre}}
+          </span>             
+        </td>
+        <td class="text-center" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-Familia' : (customer.nombre | lowercase) === 'total' ? 'estilo-totales' : ''">
+          <span *ngIf="form['chkProyeccionUtilidad'].value === false">
+            {{customer.Segmento}}
+          </span>
+          <span *ngIf="form['chkProyeccionUtilidad'].value === true">
+            {{customer.margen | number:'1.2-2'}}
+          </span>             
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' || (customer.nombre | lowercase) === 'total' ? 'estilo-totales' : ''" *ngIf="(form['cboTipoEjercicio'].value.Id === 2 && form['cboPeriodo'].value !== null && form['cboPeriodo'].value.Nombre === periodoActual) || form['chkProyeccionUtilidad'].value === true || form['cboTipoEjercicio'].value.Id === 1">
+          <span *ngIf="form['chkProyeccionUtilidad'].value === false">
+            {{customer.vtaxmileshoy | number:'1.2-2'}}
+          </span>
+          <span *ngIf="form['chkProyeccionUtilidad'].value === true">
+            {{customer.ventatoneladas | number:'1.2-2'}}
+          </span>             
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' || (customer.nombre | lowercase) === 'total' ? 'estilo-totales' : ''">
+          <span *ngIf="form['chkProyeccionUtilidad'].value === false">
+            {{customer.vtaxmiles | number:'1.2-2'}}
+          </span>
+          <span *ngIf="form['chkProyeccionUtilidad'].value === true">
+            {{customer.ventamiles | number:'1.2-2'}}
+          </span>           
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' || (customer.nombre | lowercase) === 'total' ? 'estilo-totales' : ''">
+          <span *ngIf="form['chkProyeccionUtilidad'].value === false">
+            {{customer.pptomiles | number:'1.2-2'}}
+          </span>
+          <span *ngIf="form['chkProyeccionUtilidad'].value === true">
+            {{customer.utilidadbruta | number:'1.2-2'}}
+          </span>             
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' || (customer.nombre | lowercase) === 'total' ? 'estilo-totales' : ''">
+          <span *ngIf="form['chkProyeccionUtilidad'].value === false">
+            <span class="badge" [ngClass]="customer.colorCumplimientoImporte === 0 ? 'badge-danger-local-wb': 'badge-success-local-wb'">
+              {{customer.cumpl | number:'1.2-2'}}
+            </span>
+          </span>
+          <span *ngIf="form['chkProyeccionUtilidad'].value === true">
+            {{customer.gastomes | number:'1.2-2'}}
+          </span>            
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' || (customer.nombre | lowercase) === 'total' ? 'estilo-totales' : ''">
+          <span *ngIf="form['chkProyeccionUtilidad'].value === false">
+            {{customer.TendVTA | number:'1.2-2'}}
+          </span>
+          <span class="badge" *ngIf="form['chkProyeccionUtilidad'].value === true" [ngClass]="customer.faltantepuntoequilibrio < 0 ? 'badge-danger-local-wb': 'badge-success-local-wb'">
+            {{customer.utilidadoperacion | number:'1.2-2'}}
+          </span>   
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' || (customer.nombre | lowercase) === 'total' ? 'estilo-totales' : ''">
+          <span *ngIf="form['chkProyeccionUtilidad'].value === false">
+            <span class="badge" [ngClass]="customer.ColorPorcientoTendVenta === 0 ? 'badge-danger-local-wb': 'badge-success-local-wb'">
+              {{customer.porcientoventa | number:'1.2-2'}}
+            </span>
+          </span>
+          <span *ngIf="form['chkProyeccionUtilidad'].value === true">
+            {{customer.faltantepuntoequilibrio | number:'1.2-2'}}
+          </span>            
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' || (customer.nombre | lowercase) === 'total' ? 'estilo-totales' : ''" *ngIf="(form['cboTipoEjercicio'].value.Id === 2 && form['cboPeriodo'].value !== null && form['cboPeriodo'].value.Nombre === periodoActual) || form['chkProyeccionUtilidad'].value === true || form['cboTipoEjercicio'].value.Id === 1">
+          <span *ngIf="form['chkProyeccionUtilidad'].value === false">
+            {{customer.VTATonHoy | number:'1.2-2'}}
+          </span>
+          <span *ngIf="form['chkProyeccionUtilidad'].value === true">
+            {{customer.mezclaotrosaceros | number:'1.2-2'}}
+          </span>          
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' || (customer.nombre | lowercase) === 'total' ? 'estilo-totales' : ''">
+          <span *ngIf="form['chkProyeccionUtilidad'].value === false">
+            {{customer.VTATon | number:'1.2-2'}}
+          </span>
+          <span *ngIf="form['chkProyeccionUtilidad'].value === true">
+            {{customer.mezclapolvos | number:'1.2-2'}}
+          </span>
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' || (customer.nombre | lowercase) === 'total' ? 'estilo-totales' : ''">
+          <span *ngIf="form['chkProyeccionUtilidad'].value === false">
+            {{customer.pptTon | number:'1.2-2'}}
+          </span>
+          <span *ngIf="form['chkProyeccionUtilidad'].value === true">
+            {{customer.mezclavarilla | number:'1.2-2'}}
+          </span>
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' ? 'estilo-totales' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">
+          <span class="badge" [ngClass]="customer.colorCumplimientoToneladas === 0 ? 'badge-danger-local-wb': 'badge-success-local-wb'">
+            {{customer.cumplTon | number:'1.2-2'}}
+          </span>
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' ? 'estilo-totales' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">
+          {{customer.TendTon | number:'1.2-2'}}
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' ? 'estilo-totales' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">
+          <span class="badge" [ngClass]="customer.ColorPorcientoTendTon === 0 ? 'badge-danger-local-wb': 'badge-success-local-wb'">
+            {{customer.PorcientoKilos | number:'1.2-2'}}
+          </span>
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' ? 'estilo-totales' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">
+          {{customer.utilimiles | number:'1.2-2'}}
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' ? 'estilo-totales' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">
+          {{customer.pptutil | number:'1.2-2'}}
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' ? 'estilo-totales' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">
+          <span class="badge" [ngClass]="customer.colorCumplimientoUtilidad === 0 ? 'badge-danger-local-wb': 'badge-success-local-wb'">
+            {{customer.cumplutilidad | number:'1.2-2'}}
+          </span>                
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' ? 'estilo-totales' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">
+          {{customer.TendUtil | number:'1.2-2'}}
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' ? 'estilo-totales' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">
+          <span class="badge" [ngClass]="customer.ColorPorcientoTendUtilidad === 0 ? 'badge-danger-local-wb': 'badge-success-local-wb'">
+            {{customer.porcientoutilidad | number:'1.2-2'}}
+          </span>                   
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' ? 'estilo-totales' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">
+          {{customer.margen | number:'1.2-2'}}
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' ? 'estilo-totales' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">
+          {{customer.mrgppt | number:'1.2-2'}}
+        </td>
+        <td class="text-center ancho-columna-tabla" [ngClass]="(customer.Segmento | lowercase) === 'total' ? 'estilo-totales' : ''" *ngIf="form['chkProyeccionUtilidad'].value === false">
+          <span class="badge" [ngClass]="customer.colorCumplimientoMargen === 0 ? 'badge-danger-local-wb': 'badge-success-local-wb'">
+            {{customer.cumplmargen | number:'1.2-2'}}
+          </span>                   
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-toast></p-toast>
+<p-toast position="bottom-center" key="preload_success"></p-toast>
+
+<p-dialog [(visible)]="formulasVisible" [style]="{width: '50vw'}">
+  <ng-template pTemplate="header">
+    <div class="w-100 text-center">
+      <h5>Fórmulas de cálculo módulo de ventas</h5>
+    </div>
+  </ng-template>
+
+  <p-table [value]="formulas" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-striped fuente-12">
+    <ng-template pTemplate="header">
+        <tr>
+          <th>Aplica a</th>
+          <th>Descripción</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-formula>
+      <tr>
+        <td>
+          <b>{{ formula.titulo }}</b>
+        </td>
+        <td>
+          <div class="text-primary p-2 pt-0 pb-0 pr-0">
+            <span>{{ formula.subtitulo }}</span>
+          </div>
+          <div *ngFor="let elemento of formula.descripcion">
+            {{ elemento }}
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <ng-template pTemplate="footer">
+    <div class="w-100 text-center">
+      <p-button styleClass="p-button-sm rounded" class="d-flex justify-content-end" label="Cerrar" (onClick)="OcultarDialogs('formulas')"></p-button>
+    </div>
+  </ng-template>                  
+</p-dialog>
+
+<p-dialog [(visible)]="condicionesColoresVisible" [style]="{width: '50vw'}">
+  <ng-template pTemplate="header">
+    <div class="w-100 text-center">
+      <h2>Condiciones de colores</h2>
+    </div>
+  </ng-template>
+
+  <p-table [value]="condicionesColores" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-striped fuente-12">
+    <ng-template pTemplate="header">
+        <tr>
+          <th class="text-center">Indicador</th>
+          <th class="text-center">Tipo</th>
+          <th class="text-center">Meta</th>
+          <th class="text-center">Condición</th>
+          <th class="text-center">Desde</th>
+          <th class="text-center">Condición 1</th>
+          <th class="text-center">Hasta</th>
+          <th class="text-center">Color</th>
+          <th class="text-center">Sino</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-condicion>
+      <tr>
+        <td class="text-center">
+          <b>{{ condicion.indicador }}</b>
+        </td>
+        <td class="text-center">
+          <div class="text-primary p-2 pt-0 pb-0 pr-0">
+            <span>{{ condicion.tipo }}</span>
+          </div>
+        </td>
+        <td class="text-center">
+          {{ condicion.meta }}
+        </td>
+        <td class="text-center">
+          {{ condicion.condicion }}
+        </td>
+        <td class="text-center">
+          {{ condicion.desde }}
+        </td>
+        <td class="text-center">
+          {{ condicion.condicion1 }}
+        </td>
+        <td class="text-center">
+          {{ condicion.hasta }}
+        </td>
+        <td class="text-center">
+          <span class="badge badge-success-local-wb">
+            {{ condicion.color }}
+          </span>
+        </td>
+        <td class="text-center">
+          <span class="badge badge-danger-local-wb">
+            {{ condicion.sino }}
+          </span>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <ng-template pTemplate="footer">
+    <div class="w-100 text-center">
+      <p-button styleClass="p-button-sm" class="d-flex justify-content-end" label="Cerrar" (onClick)="OcultarDialogs('condiciones')"></p-button>
+    </div>
+  </ng-template>                  
+</p-dialog>
+
+<!-- <div class="row">
+  <div class="col-md-8">
+    <div class="card border-0 shadow-sm">
+      <div class="card-header bg-secondary text-right shadow">
+        Filtros de búsqueda
+      </div>
+      <div class="card-body">
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+
+  </div>
+</div> -->

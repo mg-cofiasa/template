@@ -4,7 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
-
+import { CheckboxModule } from 'primeng/checkbox';
 
 import { AccordionModule } from 'primeng/accordion';
 import { AutoCompleteModule } from 'primeng/autocomplete';
@@ -26,6 +26,11 @@ import { TagModule } from 'primeng/tag';
 import { TimelineModule } from 'primeng/timeline';
 import { TooltipModule } from 'primeng/tooltip';
 import { ToastModule } from 'primeng/toast';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from "primeng/message"; 
+
+import { RippleModule } from 'primeng/ripple';
+
 
 @NgModule({
   declarations: [],
@@ -33,9 +38,10 @@ import { ToastModule } from 'primeng/toast';
     ButtonModule,    
     DropdownModule,
     ConfirmPopupModule,
-
-
-
+    CheckboxModule,
+    RippleModule,
+    MessageModule,
+    MessagesModule,
 
 
     AccordionModule,

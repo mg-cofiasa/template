@@ -1,0 +1,33 @@
+    <div class="pt-1 pb-1 shadow-sm container-fluid bg-breadcrum">
+      <div class="m-1 p-1">
+        <div class="row">
+          <div class="col-auto">
+            <div class="p-2 bg-white shadow rounded align-items-center d-flex justify-content-center icono-dimensiones">
+              <i class="fa-chart-pie fa-solid color-icono-seccion fuente-20"></i>
+            </div>
+          </div>
+          <div class="col-auto align-items-center d-flex">
+            <div class="d-inline lead fuente-22 color-gris">
+              {{breadcrum.seccion}}
+            </div>
+          </div>
+          <div class="col-auto ml-auto align-items-center d-flex">
+            <div class="d-inline">
+              <a routerLink="main/dashboard">
+                <i class="fa-solid fa-house color-breadcrum"></i>
+              </a>
+              <span *ngIf="breadcrum.nivel01">
+                <span class="pl-2 pr-2"> / </span>
+                <span>
+                  {{breadcrum.nivel01}}
+                </span>
+              </span>
+              <span class="pl-2 pr-2"> / </span>
+              <span>
+                {{breadcrum.nivel02}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -19,7 +19,7 @@
                   <div class="col-md-12">
                     <div class="flex flex-wrap justify-content-center gap-3">
                       <label for="cboEmpresa" class="m-0 pl-2 text-secondary font-weight-normal">Empresa *</label>
-                      <p-dropdown formControlName="cboEmpresa" id="cboEmpresa" class="p-inputtext-sm" styleClass="w-100" [options]="cboEmpresaData" emptyMessage="No hay elementos" optionLabel="nombre" [selectOnFocus]="true"></p-dropdown>
+                      <p-dropdown formControlName="cboEmpresa" id="cboEmpresa" class="p-inputtext-sm" styleClass="w-100" [options]="cboEmpresaData" emptyMessage="No hay elementos" optionLabel="nombre" [selectOnFocus]="true" (onChange)="ChangeFavIcon()"></p-dropdown>
                     </div>
                     <label for="cboEmpresa" class="font-weight-normal" styleClass="w-100">
                       <span *ngIf="form['cboEmpresa'].invalid && form['cboEmpresa'].dirty" class="text-danger small pl-2">

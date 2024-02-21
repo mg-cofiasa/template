@@ -4,6 +4,8 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
+@import "assets/css/modulo_ventas.scss";
+
 
 //@import "primeng/resources/themes/bootstrap4-light-blue/theme.css";
 //@import "primeng/resources/themes/bootstrap4-light-purple/theme.css";
@@ -56,33 +58,64 @@
 
 
 
+  //padding: 6px !important;
+	//min-width: 120px !important;
+
 .badge-success-local{
 	background-color: #e8fef2 !important;
 	color: #51cd89; 
-  padding: 6px !important;
-	min-width: 120px !important;
   justify-content: center !important;
 	font-size: 1em !important;
+	font-weight: normal !important;
+}
+
+.badge-success-local-wb{
+	@extend .badge-success-local;
 	border: 1px solid #caf5de !important;
 }
 
 .badge-danger-local{
 	background-color: #fcf0f4 !important;
 	color: #f1436e;
-  padding: 6px !important;
-	min-width: 120px !important;
   justify-content: center !important;
-  font-weight: normal;
+	font-size: 1em !important;
+  font-weight: normal !important;
 }
 
 .badge-danger-local-wb{
   @extend .badge-danger-local;
-	border: 1px solid #f7dee6 !important;
+	border: 1px solid #f5d6e0 !important;
 }
+
+
+
+
+.sweet-alert-custom-info {
+  background-color: #e9e9ff !important;
+  border-left: 4px solid #696cff !important;
+  color: #696cff !important;
+}
+
+
+
+
+
+
+
+.badge-success-local-hover{
+	@extend .badge-success-local;
+}
+
+.badge-success-local-hover:hover{
+	background-color: #dcfdec !important;
+	border: 1px solid #e1f7eb !important;
+}
+
 
 .badge-info-local{
 	background-color: #f8f5ff !important;
 	color: #7239ea; 
+	font-size: 1em !important;
   padding: 6px !important;
 	min-width: 120px !important;
   justify-content: center !important;
@@ -98,6 +131,7 @@
 	background-color: #f1faff !important;
 	color: #3e97ff; 
   padding: 6px !important;
+	font-size: 1em !important;
 	min-width: 120px !important;
   justify-content: center !important;	
   font-weight: normal;
@@ -140,3 +174,18 @@
 	background-color: #f5f8facb !important;
 }
 
+// Fuente
+.color-gris{
+	color:#464646 !important;
+}
+
+.fuente-12{
+	font-size: 12px !important;
+}
+
+.fuente-20{
+	font-size: 20px !important;
+}
+.fuente-22{
+	font-size: 22px !important;
+}

@@ -16,6 +16,7 @@ import { AppService } from './../../../services/app.service';
   templateUrl: './login.component.html'
 })
 export class LoginComponent  {
+  public favIcon: HTMLLinkElement = document.querySelector('#favIcon')!;
   public cboEmpresaData: Empresa[] = [];
   public awaitingRequest: boolean = false;
 
@@ -38,7 +39,7 @@ export class LoginComponent  {
     private LoginService: ApiLoginService
     ) {
       this.cboEmpresaData.push({id: "CFA", nombre:"Cofiasa"});
-      this.cboEmpresaData.push({id: "PDA", nombre:"Pradesa"});
+      this.cboEmpresaData.push({id: "ACERO", nombre:"Pradesa"});
       this.formLogin.controls["cboEmpresa"].setValue({id: "CFA", nombre:"Cofiasa"});
 
       let isLoggedIn: boolean = this.tokenService.isLoggedIn();
@@ -52,7 +53,7 @@ export class LoginComponent  {
     this.awaitingRequest = true;
     this.loginRequest.UserName = this.formLogin.controls["txtUsuario"].value;
     this.loginRequest.Password = this.formLogin.controls["txtPassword"].value;
-    this.loginRequest.Empresa = this.formLogin.controls["cboEmpresa"].value.id;
+    this.loginRequest.Company = this.formLogin.controls["cboEmpresa"].value.id;
 
     this.LoginService.postLogin(this.loginRequest).subscribe({
       next: (Respuesta: TokenResponse[]) => {
@@ -83,4 +84,17 @@ export class LoginComponent  {
   get form(){
     return this.formLogin.controls;
   }   
+
+  /**
+   * Comentario: Actualiza el icono de la empresa de la pestaña de navegación
+   */
+  public ChangeFavIcon() {
+    let empresa = this.form["cboEmpresa"].value;
+    if (empresa.id === "CFA"){
+      this.favIcon.href = './assets/imgs/favicon/favicon_cfa.png';
+    }
+    else{
+      this.favIcon.href = './assets/imgs/favicon/favicon_pda.png';
+    }
+  }    
 }

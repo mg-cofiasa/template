@@ -1,7 +1,7 @@
 export interface LoginRequest {
   UserName: string;
   Password: string;
-  Empresa: string;
+  Company: string;
 }
 
 export interface Empresa {

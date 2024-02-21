@@ -12,7 +12,7 @@ export class ErrorHandlerService {
     const codigosEstadoHttp: number[] = [400, 404, 415, 500];
 
     if (error.status === 401) { // Accion: Mensaje de error en login
-      this.SweetAlertModal("Error al iniciar sesión", "Usuario y/o contraseña incorrecta(s)");
+      this.SweetAlertModal("Error al iniciar sesión", error.error.Title);
       return;
     }
     else if (codigosEstadoHttp.includes(error.status)) { // Accion: Mensaje de error 400
@@ -54,9 +54,9 @@ export class ErrorHandlerService {
         reader.readAsText(blb);
       }
       else{
-        let message = `<div class="pt-2">${error.error.type}</div>`;
+        let message = `<div class="pt-2">${error.error.Type}</div>`;
   
-        const values:any = error.error.errors.listErrors;
+        const values:any = error.error.Errors.ListErrors;
         if (values){
           values.map((value: any) => {
             message = `${message} <div class="pt-2 small" style="text-align: center">${value}</div>`;
@@ -64,7 +64,7 @@ export class ErrorHandlerService {
         }
         
         message = `${message} <div class="pt-6 text-danger fst-italic" style="text-align: right; font-size: smaller; padding-right:4px">Error ${error.status}</div>`;
-        this.SweetAlertModal(error.error.title, message);
+        this.SweetAlertModal(error.error.Title, message);
       }      
       return;
     }

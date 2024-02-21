@@ -1,0 +1,22 @@
+$color: #6366f1 !important;
+.color-breadcrum{
+  color: $color;
+  transition: 0.2s;
+  &:hover{
+    color: #5c6475b4 !important;
+  }
+}
+
+.icono-dimensiones{
+  height: 40px !important; 
+  width: 40px !important;
+}
+
+.bg-breadcrum{
+  background-color: #f9fafb !important;
+  border-bottom: 1px solid rgb(0, 53, 102, 0.2);
+}
+
+.color-icono-seccion{
+  color: $color;
+}

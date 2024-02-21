@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+import { BreadcrumComponent } from './components/adminlte/breadcrum/breadcrum.component';
 import { ContentWrapperComponent } from './components/adminlte/content-wrapper/content-wrapper.component';
 import { ControlSidebarComponent } from './components/adminlte/control-sidebar/control-sidebar.component';
 import { MainHeaderComponent } from './components/adminlte/main-header/main-header.component';
@@ -11,6 +12,7 @@ import { PrimeNGModule } from './prime-ng.module';
 
 @NgModule({
   declarations: [
+    BreadcrumComponent,
     ContentWrapperComponent,
     ControlSidebarComponent,
     MainHeaderComponent,
@@ -18,6 +20,7 @@ import { PrimeNGModule } from './prime-ng.module';
     MainSidebarComponent
   ],
   exports:[
+    BreadcrumComponent,
     ContentWrapperComponent,
     ControlSidebarComponent,
     MainHeaderComponent,
@@ -26,7 +29,8 @@ import { PrimeNGModule } from './prime-ng.module';
   ],
   imports: [
     CommonModule,
-    RouterModule,PrimeNGModule
+    PrimeNGModule,
+    RouterModule
   ]
 })
 export class SharedModule { }
