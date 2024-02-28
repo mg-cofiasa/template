@@ -5,7 +5,7 @@
 @import "primeicons/primeicons.css";
 
 @import "assets/css/modulo_ventas.scss";
-
+//@import "assets/css/lara.scss";
 
 //@import "primeng/resources/themes/bootstrap4-light-blue/theme.css";
 //@import "primeng/resources/themes/bootstrap4-light-purple/theme.css";
@@ -56,8 +56,18 @@
 //@import "primeng/resources/themes/rhea/theme.css";
 
 
+.p-component {
+    box-sizing: border-box;
+    font-size: 14px;
+    line-height: 1rem;
+}
 
-
+/* .p-component, .p-table * {
+  box-sizing: border-box;
+  font-size: 12rem;
+  line-height: 1rem;
+}
+ */
   //padding: 6px !important;
 	//min-width: 120px !important;
 
@@ -158,6 +168,10 @@
 
 
 // Varios
+.logo-preload{
+  opacity: 0.8; width: 160px !important;
+}
+
 .w-100-vh{
 	min-height: 100vh !important;
 }
@@ -167,7 +181,7 @@
 	background-color: #f5f8fa !important;
 }
 .bg-img-login{
-	background-image: url("./assets/imgs/img_pradesa_cofiasa.jpg"); background-repeat: no-repeat; background-position: center; background-size: cover; min-height: 100px;
+	background-image: url("http://172.16.1.28/media/imgs/img_pradesa_cofiasa.jpg"); background-repeat: no-repeat; background-position: center; background-size: cover; min-height: 100px;
 }
 
 .bg-login-transparent{
@@ -182,7 +196,12 @@
 .fuente-12{
 	font-size: 12px !important;
 }
-
+.fuente-14{
+	font-size: 14px !important;
+}
+.fuente-16{
+	font-size: 16px !important;
+}
 .fuente-20{
 	font-size: 20px !important;
 }

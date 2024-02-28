@@ -18,6 +18,7 @@ import { InfoUsuario } from 'src/app/auth/interfaces/token-response';
 import { TokenService } from 'src/app/auth/services/token.service';
 
 import { SharedService } from 'src/app/shared/services/shared.service';
+import { GraficasParametrizacionService } from '../services/graficas-parametrizacion.service';
 
 @Component({
   selector: 'app-ventas-tendencia',
@@ -53,9 +54,6 @@ export class VentasTendenciaComponent {
   public periodoActual: string = this.fechaHoy.getFullYear().toString();
 
   public enviarDatosGrafica: iEnviarDatosGrafica = <iEnviarDatosGrafica>{};
-
-  //public empresa: string = localStorage.getItem('empresa')!.toString();
-  public ventaNeta: boolean = false;
   
   public formBusqueda: FormGroup = this.fb.group({
     cboPeriodo: [],
@@ -86,167 +84,15 @@ export class VentasTendenciaComponent {
 
   Highcharts: typeof Highcharts = Highcharts;
 
-  public estructuraBaseGrafica: Highcharts.Options = {
-    chart: {
-      type: 'column',
-      backgroundColor: 'transparent',
-      borderWidth: 0,
-    },     
-    credits: {
-      enabled: false
-    },
-    title: {
-      text: '',
-      style: {
-        color: '#4d56a5'
-      }
-    },
-    subtitle: {
-      align: 'center',
-      text: ' '
-    },
-    plotOptions: {
-      series: {
-        borderWidth: 0,
-        tooltip: {},
-        dataLabels: {
-          enabled: true,
-          format: '{point.tooltip}',
-          borderRadius: 5,
-          borderWidth: 1,
-          borderColor: '#cacef7',
-          shadow:false,
-          style:{fontSize:'0.85em',backgroundColor:'transparent'}
-        }
-      }
-    },
-    xAxis: {
-      type: 'category',
-      gridLineWidth: 1,
-      gridLineColor: '#d0e5ff',
-      labels:{
-        style: {
-          fontSize:'1em'
-        }
-      }
-    },
-    yAxis: {
-      gridLineWidth: 1,
-      gridLineColor: '#f0f0f0',
-      title: {
-        text: 'MILES &nbsp; DE &nbsp; PESOS / PORCENTAJE',
-        style: {
-          fontSize: '0.85em'
-        }
-      },
-    },
-    tooltip: {
-      headerFormat: '',
-      pointFormat: '{point.tooltip}',
-      style: {
-        color:'#ffffff', fontSize:'1em'
-      },
-      padding:10,
-      backgroundColor:'#232323'
-    },
-    legend:{enabled:false},
-    series:[
-      {
-        name: '',
-        type:'column',
-        shadow:true,
-        colorByPoint: true,
-        tooltip: {
-          followPointer: true
-        },
-        dataLabels:{crop: false, overflow:'allow', y:-4, shadow:false},
-        data: []
-      }]
-  };
-
-  public estructuraBaseGraficaProyeccion: Highcharts.Options = {
-    chart: {
-      type: 'column'
-    },
-    title: {
-      align: 'center',
-      text: ''
-    },
-    subtitle: {
-      align: 'center',
-      text: ''
-    },
-    xAxis: {
-      type: 'category'
-    },
-    yAxis: {
-      title: {
-        text: ''
-      }
-    },
-    legend: {
-        enabled: false
-    },
-    credits:{
-      enabled: false
-    },
-    plotOptions: {
-      series: {
-        borderWidth: 0,
-        dataLabels: {
-          enabled: true,
-          format: '{point.y:.2f}',
-          borderRadius: 5,
-          borderWidth: 1,
-          borderColor: '#cacef7',
-          shadow:false,
-          style: {
-            fontSize:'0.85em',
-            backgroundColor:'transparent'
-          },
-          color:'#000000'
-        }
-      }
-    },
-    global: {
-      useUTC: false,
-    },    
-    lang:{
-      decimalPoint:'.',
-      thousandsSep:','
-    },
-    tooltip: {
-      headerFormat: '',
-      pointFormat: '<span style="color:{point.color}">{point.name}</span>: ${point.y: ,.2f}',
-      style: {
-        color:'#ffffff', fontSize:'1em'
-      },
-      padding:10,
-      backgroundColor:'#232323',
-      formatter:function(){
-        return '<span style="color:' + this.point.color + '">' +  this.point.name + '</span>' + ': $' + Highcharts.numberFormat(this.point.y! , 2,'.',',');
-      }      
-    },
-    series: [{}] as any,
-    drilldown: {
-      breadcrumbs: {
-        position: {
-          align: 'right'
-        }
-      },
-      series: [{}] as any
-    }
-  };
-
-  public ventaEnDineroGrafica: Highcharts.Options = this.estructuraBaseGrafica;
-  public ventaEnToneladasGrafica: Highcharts.Options = this.estructuraBaseGrafica;
-  public utilidadEnImporteGrafica: Highcharts.Options = this.estructuraBaseGrafica;
-  public margenGrafica: Highcharts.Options = this.estructuraBaseGrafica;
+  public ventaEnDineroGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaBase;
+  public ventaEnToneladasGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaBase;
+  public utilidadEnImporteGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaBase;
+  public margenGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaBase;
   
-  public utilidadOperacionGrafica: Highcharts.Options = this.estructuraBaseGraficaProyeccion;
-  public faltantePuntoEquilibrioGrafica: Highcharts.Options = this.estructuraBaseGraficaProyeccion;
-  public utilidadBrutaGrafica: Highcharts.Options = this.estructuraBaseGraficaProyeccion;
-  public mezclaGrafica: Highcharts.Options = this.estructuraBaseGrafica;
+  public utilidadOperacionGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaProyeccion;
+  public faltantePuntoEquilibrioGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaProyeccion;
+  public utilidadBrutaGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaProyeccion;
+  public mezclaGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaBase;
 
   constructor(
     //private auth: AuthService,
@@ -256,7 +102,8 @@ export class VentasTendenciaComponent {
     private ventasBaseService: VentasBaseService,
     private ventasTendenciaService: VentasTendenciaService,
     private tokenService: TokenService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private graficasParametrizacionService: GraficasParametrizacionService
     ){
       this.infoUsuario = this.tokenService.ObtenerInfoUsuario();
       this.usuario = this.infoUsuario.Usuario;      
@@ -500,10 +347,10 @@ export class VentasTendenciaComponent {
    */
   public GenerarGraficas(Respuesta: iArregloGraficaDatos){
     if (Respuesta.Ventas !== undefined){
-      this.ventaEnDineroGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGrafica));
-      this.ventaEnToneladasGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGrafica));
-      this.utilidadEnImporteGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGrafica));
-      this.margenGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGrafica));
+      this.ventaEnDineroGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
+      this.ventaEnToneladasGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
+      this.utilidadEnImporteGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
+      this.margenGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
   
       this.ventaEnDineroGrafica.series = [{
         name: 'Venta en dinero',
@@ -727,10 +574,10 @@ export class VentasTendenciaComponent {
       this.actualizarGraficaProyeccion = true;
       let puntos: any[] = this.GeneraPuntosProyeccion(JSON.parse(Respuesta.UtilidadOperacion));
 
-      this.utilidadOperacionGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGraficaProyeccion));
-      this.faltantePuntoEquilibrioGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGraficaProyeccion));
-      this.utilidadBrutaGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGraficaProyeccion));
-      this.mezclaGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGrafica));
+      this.utilidadOperacionGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaProyeccion));
+      this.faltantePuntoEquilibrioGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaProyeccion));
+      this.utilidadBrutaGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaProyeccion));
+      this.mezclaGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
 
       this.utilidadOperacionGrafica.series = [
         {
@@ -1013,7 +860,7 @@ export class VentasTendenciaComponent {
    * Acción: Genera las gráficas
    */
   public GenerarGraficaMezcla(Respuesta: iArregloGraficaDatos){
-    this.mezclaGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGrafica));
+    this.mezclaGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
     this.mezclaGrafica.series =  [{
       name: 'Mezcla',
       type:'column',

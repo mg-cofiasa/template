@@ -112,7 +112,7 @@
         <div class="row">
           <div class="col-md-12">
             <div *ngIf="tituloGraficasTablas.length !== 0">
-              {{tituloGraficasTablas}}
+              <!-- {{tituloGraficasTablas}} -->
             </div>
           </div>
         </div>
@@ -305,7 +305,7 @@
           <b>{{ formula.titulo }}</b>
         </td>
         <td>
-          <div class="text-primary p-2 pt-0 pb-0 pr-0">
+          <div class="text-primary">
             <span>{{ formula.subtitulo }}</span>
           </div>
           <div *ngFor="let elemento of formula.descripcion">
@@ -350,7 +350,7 @@
           <b>{{ condicion.indicador }}</b>
         </td>
         <td class="text-center">
-          <div class="text-primary p-2 pt-0 pb-0 pr-0">
+          <div class="text-primary">
             <span>{{ condicion.tipo }}</span>
           </div>
         </td>

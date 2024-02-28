@@ -1,30 +1,31 @@
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4" style="font-size: 16px !important;">
+  <aside class="main-sidebar sidebar-dark-primary elevation-4 fuente-16">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link align-items-center d-flex">
-      <img src="assets/imgs/logos/logo-blanco.png" alt="Logo empresa" class="brand-image img-circle elevation-3" style="opacity: .8;width: 40px !important;">
+    <a routerLink="./main/dashboard" class="brand-link align-items-center d-flex">
+      <img [src]="infoUsuario.Empresa === 'CFA'? urlMedia + 'logos/prod/logo_cfa_blanco.png':urlMedia + 'logos/prod/logo_pda_blanco.png'" alt="Logo" [ngClass]="infoUsuario.Empresa === 'CFA'? 'img-circle elevation-3' : ''" class="brand-image logo pl-0 ml-0">
+      
       <div class="brand-text font-weight-light text-center w-100">
         <div class="p-0 m-0">
-          Grupo &nbsp; Cofiasa
+          <span *ngIf="infoUsuario.Empresa === 'CFA'; else Pradesa">Cofiasa</span>
+          <ng-template #Pradesa>Pradesa</ng-template>
+          <span>&nbsp; - &nbsp;GPC</span>
         </div>
       </div>
-      <!-- <img src="assets/imgs/logos/logo-blanco.png" alt="Logo empresa" class="brand-image img-circle elevation-3" style="opacity: .8; width: 14px !important;"> -->
-      <!-- <span class="brand-text font-weight-light">Cofiasa / Pradesa</span> -->      
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel mt-2 pb-3 pt-0 mb-2 d-flex">
         <div class="image">
           <span *ngIf="infoUsuario.UrlFoto; else SinFoto">
-            <img [src]="'http://172.16.1.28/FotosRH/' + infoUsuario.UrlFoto" class="img-circle elevation-2" alt="User Image" style="height: 40px;  width: 40px !important;">
+            <img [src]="urlMedia + 'FotosRH/' + infoUsuario.UrlFoto" class="img-circle elevation-2 foto" alt="Foto">
           </span>
           <ng-template #SinFoto>
-            <img src="assets/imgs/no_photo_01.png" class="img-circle elevation-2" alt="User Image" style="height: 40px;  width: 40px !important;">
+            <img [src]="urlMedia + 'imgs/no_photo_01.png'" class="img-circle elevation-2 foto" alt="Foto">
           </ng-template>
         </div>
-        <div class="info">
+        <div class="info d-flex align-items-center">
           <a href="#" class="d-block">{{infoUsuario.Usuario}}</a>
         </div>
       </div>      
@@ -66,10 +67,11 @@
               </ng-container>
             </ng-container>
           </ng-container>
+          <div class="divider-menu mb-2" *ngIf="menuLateral.length > 1"></div>
           <ng-container *ngFor="let menu of menuLateral">
             <ng-container *ngIf="menu.Aplicacion !== 'Indicadores'">
               <li class="nav-item">
-                <a href="{{menu.Ruta}}" class="nav-link">
+                <a href="{{menu.Ruta}}" routerLinkActive="active" class="nav-link">
                   <i class="nav-icon {{menu.Icono}}"></i>
                   <p>
                     {{menu.Aplicacion}}
@@ -79,8 +81,9 @@
               </li>
             </ng-container>
           </ng-container>
+          <div class="divider-menu mt-2"></div>
           <li class="nav-item">
-            <a routerLink="dashboard" routerLinkActive="active" class="nav-link">
+            <a href="#" routerLinkActive="active" class="nav-link" (click)="CerrarSesion()">
               <i class="nav-icon fa-solid fa-arrow-right-from-bracket"></i>
               <p>
                 Cerrar sesión

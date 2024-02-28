@@ -13,6 +13,7 @@ import { catalogoCondicionesColores, catalogoFormulas } from '../constants/api-v
 import { TokenService } from 'src/app/auth/services/token.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import { InfoUsuario } from 'src/app/auth/interfaces/token-response';
+import { GraficasParametrizacionService } from '../services/graficas-parametrizacion.service';
 
 @Component({
   selector: 'app-ventas',
@@ -70,90 +71,12 @@ export class VentasComponent {
   ];
 
   Highcharts: typeof Highcharts = Highcharts;
-
-  public estructuraBaseGrafica: Highcharts.Options = {
-    chart: {
-      type: 'column',
-      backgroundColor: 'transparent',
-      borderWidth: 0,
-    },     
-    credits: {
-      enabled: false
-    },
-    title: {
-      text: '',
-      style: {
-        color: '#4d56a5'
-      }
-    },
-    subtitle: {
-      align: 'center',
-      text: ' '
-    },
-    plotOptions: {
-      series: {
-        borderWidth: 0,
-        tooltip: {},
-        dataLabels: {
-          enabled: true,
-          format: '{point.tooltip}',
-          borderRadius: 5,
-          borderWidth: 1,
-          borderColor: '#cacef7',
-          shadow:false,
-          style:{fontSize:'0.85em',backgroundColor:'transparent'}
-        }
-      }
-    },
-    xAxis: {
-      type: 'category',
-      gridLineWidth: 1,
-      gridLineColor: '#d0e5ff',
-      labels:{
-        style: {
-          fontSize:'0.9em'
-        }
-      }
-    },
-    yAxis: {
-      gridLineWidth: 1,
-      gridLineColor: '#f0f0f0',
-      title: {
-        text: 'MILES &nbsp; DE &nbsp; PESOS',
-        style: {
-          fontSize: '0.85em'
-        }
-      },
-    },
-    tooltip: {
-      headerFormat: '',
-      pointFormat: '{point.tooltip}',
-      style: {
-        color:'#ffffff', fontSize:'1em'
-      },
-      padding:10,
-      backgroundColor:'#232323'
-    },
-    legend:{enabled:false},
-    series:[
-      {
-        name: '',
-        type:'column',
-        shadow:true,
-        colorByPoint: true,
-        tooltip: {
-          followPointer: true
-        },
-        dataLabels:{crop: false, overflow:'allow', y:-6, shadow:false},
-        data: []
-      }]
-  };
-
-  public ventaEnDineroGrafica: Highcharts.Options = this.estructuraBaseGrafica;
-  public ventaEnToneladasGrafica: Highcharts.Options = this.estructuraBaseGrafica;
-  public utilidadEnImporteGrafica: Highcharts.Options = this.estructuraBaseGrafica;
-  public margenGrafica: Highcharts.Options = this.estructuraBaseGrafica;
-  public mezclaGrafica: Highcharts.Options = this.estructuraBaseGrafica;
+  
+  public ventaEnDineroGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaBase;
+  public ventaEnToneladasGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaBase;
+  public utilidadEnImporteGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaBase;
+  public margenGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaBase;
+  public mezclaGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaBase;
   
   constructor(
     //private auth: AuthService,
@@ -162,7 +85,8 @@ export class VentasComponent {
     private ventasService: VentasService,
     private ventasBaseService: VentasBaseService,
     private tokenService: TokenService,
-    private sharedService: SharedService    
+    private sharedService: SharedService,
+    private graficasParametrizacionService: GraficasParametrizacionService
     ){
       this.infoUsuario = this.tokenService.ObtenerInfoUsuario();
       this.usuario = this.infoUsuario.Usuario;
@@ -325,11 +249,11 @@ export class VentasComponent {
    * Acción: Genera las gráficas
    */
   public GenerarGraficas(Respuesta: iArregloGraficaDatos){
-    this.ventaEnDineroGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGrafica));
-    this.ventaEnToneladasGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGrafica));
-    this.utilidadEnImporteGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGrafica));
-    this.margenGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGrafica));
-    this.mezclaGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGrafica));
+    this.ventaEnDineroGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
+    this.ventaEnToneladasGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
+    this.utilidadEnImporteGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
+    this.margenGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
+    this.mezclaGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
 
     this.ventaEnDineroGrafica.series = [{
       name: 'Venta en dinero',

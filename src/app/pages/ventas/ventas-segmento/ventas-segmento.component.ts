@@ -3,20 +3,22 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { VentasSegmentoService } from '../services/ventas-segmento.service';
 import { MessageService } from 'primeng/api';
 //import { AuthService } from '@modules/auth';
-import { iArregloGraficaDatos, iCatalogoCondicionesColores, iCatalogoFormulas, iCatalogoIdNombre, iCatalogoNombre, iCatalogos, iEnviarDatosGrafica, iTablaVentaSegmento, iUsuarioCatalogos } from '../interfaces/ventas.interface';
+import { iArregloGraficaDatos, iCatalogoCondicionesColores, iCatalogoFormulas, iCatalogoIdNombre, iCatalogoNombre, iCatalogos, iDatosGrafica, iEnviarDatosGrafica, iTablaVentaSegmento, iUsuarioCatalogos } from '../interfaces/ventas.interface';
 import * as Highcharts from 'highcharts';
 import Swal from 'sweetalert2';
 
 import Drilldown from "highcharts/modules/drilldown";
 Drilldown(Highcharts);
+import HC_exporting from 'highcharts/modules/exporting';
+HC_exporting(Highcharts);
 
 import { catalogoCondicionesColores, catalogoFormulas } from '../constants/api-ventas-catalogos';
 import { formatDate } from '@angular/common';
 import { VentasBaseService } from '../services/ventas-base.service';
-import { VentasService } from '../services/ventas.service';
 import { InfoUsuario } from 'src/app/auth/interfaces/token-response';
 import { TokenService } from 'src/app/auth/services/token.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
+import { GraficasParametrizacionService } from '../services/graficas-parametrizacion.service';
 
 @Component({
   selector: 'app-ventas-segmento',
@@ -52,8 +54,6 @@ export class VentasSegmentoComponent {
   public periodoActual: string = ((this.fechaHoy.getFullYear() * 100) + this.fechaHoy.getMonth() + 1).toString();
 
   public enviarDatosGrafica: iEnviarDatosGrafica = <iEnviarDatosGrafica>{};
-
-  //public empresa: string = localStorage.getItem('empresa')!.toString();
   public ventaNeta: boolean = false;
   
   public formBusqueda: FormGroup = this.fb.group({
@@ -83,177 +83,27 @@ export class VentasSegmentoComponent {
 
   Highcharts: typeof Highcharts = Highcharts;
 
-  public estructuraBaseGrafica: Highcharts.Options = {
-    chart: {
-      type: 'column',
-      backgroundColor: 'transparent',
-      borderWidth: 0,
-    },     
-    credits: {
-      enabled: false
-    },
-    title: {
-      text: '',
-      style: {
-        color: '#4d56a5'
-      }
-    },
-    subtitle: {
-      align: 'center',
-      text: ' '
-    },
-    plotOptions: {
-      series: {
-        borderWidth: 0,
-        tooltip: {},
-        dataLabels: {
-          enabled: true,
-          format: '{point.tooltip}',
-          borderRadius: 5,
-          borderWidth: 1,
-          borderColor: '#cacef7',
-          shadow:false,
-          style:{fontSize:'0.85em',backgroundColor:'transparent'}
-        }
-      }
-    },
-    xAxis: {
-      type: 'category',
-      gridLineWidth: 1,
-      gridLineColor: '#d0e5ff',
-      labels:{
-        style: {
-          fontSize:'1em'
-        }
-      }
-    },
-    yAxis: {
-      gridLineWidth: 1,
-      gridLineColor: '#f0f0f0',
-      title: {
-        text: 'MILES &nbsp; DE &nbsp; PESOS',
-        style: {
-          fontSize: '0.85em'
-        }
-      },
-    },
-    tooltip: {
-      headerFormat: '',
-      pointFormat: '{point.tooltip}',
-      style: {
-        color:'#ffffff', fontSize:'1em'
-      },
-      padding:10,
-      backgroundColor:'#232323'
-    },
-    legend:{enabled:false},
-    series:[
-      {
-        name: '',
-        type:'column',
-        shadow:true,
-        colorByPoint: true,
-        tooltip: {
-          followPointer: true
-        },
-        dataLabels:{crop: false, overflow:'allow', y:-4, shadow:false},
-        data: []
-      }]
-  };
-
-  public estructuraBaseGraficaProyeccion: Highcharts.Options = {
-    chart: {
-      type: 'column'
-    },
-    title: {
-      align: 'center',
-      text: ''
-    },
-    subtitle: {
-      align: 'center',
-      text: ''
-    },
-    xAxis: {
-      type: 'category'
-    },
-    yAxis: {
-      title: {
-        text: ''
-      }
-    },
-    legend: {
-        enabled: false
-    },
-    credits:{
-      enabled: false
-    },
-    plotOptions: {
-      series: {
-        borderWidth: 0,
-        dataLabels: {
-          enabled: true,
-          format: '{point.y:.2f}',
-          borderRadius: 5,
-          borderWidth: 1,
-          borderColor: '#cacef7',
-          shadow:false,
-          style: {
-            fontSize:'0.85em',
-            backgroundColor:'transparent'
-          },
-          color:'#000000'
-        }
-      }
-    },
-    global: {
-      useUTC: false,
-    },    
-    lang:{
-      decimalPoint:'.',
-      thousandsSep:','
-    },
-    tooltip: {
-      headerFormat: '',
-      pointFormat: '<span style="color:{point.color}">{point.name}</span>: ${point.y: ,.2f}',
-      style: {
-        color:'#ffffff', fontSize:'1em'
-      },
-      padding:10,
-      backgroundColor:'#232323',
-      formatter:function(){
-        return '<span style="color:' + this.point.color + '">' +  this.point.name + '</span>' + ': $' + Highcharts.numberFormat(this.point.y! , 2,'.',',');
-      }      
-    },
-    series: [{}] as any,
-    drilldown: {
-      breadcrumbs: {
-        position: {
-          align: 'right'
-        }
-      },
-      series: [{}] as any
-    }
-  };
-
-  public ventaEnDineroGrafica: Highcharts.Options = this.estructuraBaseGrafica;
-  public ventaEnToneladasGrafica: Highcharts.Options = this.estructuraBaseGrafica;
-  public utilidadEnImporteGrafica: Highcharts.Options = this.estructuraBaseGrafica;
-  public margenGrafica: Highcharts.Options = this.estructuraBaseGrafica;
+  public ventaEnDineroGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaBase
+  public ventaEnToneladasGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaBase
+  public utilidadEnImporteGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaBase
+  public margenGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaBase
   
-  public utilidadOperacionGrafica: Highcharts.Options = this.estructuraBaseGraficaProyeccion;
-  public faltantePuntoEquilibrioGrafica: Highcharts.Options = this.estructuraBaseGraficaProyeccion;
-  public utilidadBrutaGrafica: Highcharts.Options = this.estructuraBaseGraficaProyeccion;
-  public mezclaGrafica: Highcharts.Options = this.estructuraBaseGrafica;
+  public utilidadOperacionGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaProyeccion;
+  public faltantePuntoEquilibrioGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaProyeccion;
+  public utilidadBrutaGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaProyeccion;
+  public mezclaGrafica: Highcharts.Options = this.graficasParametrizacionService.graficaBase;
+  public proyeccionDetalle: Highcharts.Options = this.graficasParametrizacionService.graficaBase;
+  public datosProyeccionDetalle: any[] = [];
 
   constructor(
     //private auth: AuthService,
     private fb: FormBuilder,
     private messageService: MessageService,
-    private ventasService: VentasService,
     private ventasBaseService: VentasBaseService,
     private ventasSegmentoService: VentasSegmentoService,
     private tokenService: TokenService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private graficasParametrizacionService: GraficasParametrizacionService
     ){
       this.infoUsuario = this.tokenService.ObtenerInfoUsuario();
       this.usuario = this.infoUsuario.Usuario;
@@ -432,6 +282,7 @@ export class VentasSegmentoComponent {
           this.GenerarGraficas(Respuesta);
         }
         else{
+          this.datosProyeccionDetalle = JSON.parse(Respuesta.ProyeccionDetalle);
           if (actualizarDatos === true){
             Swal.close();
             this.actualizacionInformacion = new Date();
@@ -457,10 +308,10 @@ export class VentasSegmentoComponent {
    */
   public GenerarGraficas(Respuesta: iArregloGraficaDatos){
     if (Respuesta.Ventas !== undefined){
-      this.ventaEnDineroGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGrafica));
-      this.ventaEnToneladasGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGrafica));
-      this.utilidadEnImporteGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGrafica));
-      this.margenGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGrafica));
+      this.ventaEnDineroGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
+      this.ventaEnToneladasGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
+      this.utilidadEnImporteGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
+      this.margenGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
   
       this.ventaEnDineroGrafica.series = [{
         name: 'Venta en dinero',
@@ -684,9 +535,11 @@ export class VentasSegmentoComponent {
       this.actualizarGraficaProyeccion = true;
       let puntos: any[] = this.GeneraPuntosProyeccion(JSON.parse(Respuesta.UtilidadOperacion));
 
-      this.utilidadOperacionGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGraficaProyeccion));
-      this.faltantePuntoEquilibrioGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGraficaProyeccion));
-      this.utilidadBrutaGrafica = JSON.parse(JSON.stringify(this.estructuraBaseGraficaProyeccion));
+      this.utilidadOperacionGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaProyeccion));
+      this.faltantePuntoEquilibrioGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaProyeccion));
+      this.utilidadBrutaGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaProyeccion));
+      this.mezclaGrafica = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
+      this.proyeccionDetalle = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
       
       this.utilidadOperacionGrafica.series = [
         {
@@ -710,17 +563,43 @@ export class VentasSegmentoComponent {
       };
   
       puntos = this.GeneraPuntosProyeccion(JSON.parse(Respuesta.FaltantePuntoEquilibrio));
+      let puntosDD = this.GeneraPuntosProyeccion(JSON.parse(Respuesta.FaltantePuntoEquilibrio));
       this.faltantePuntoEquilibrioGrafica.series = [
         {
           dataLabels:{crop: false, overflow:'allow', y:0, shadow:false},
           name: 'ZONAS',
-          shadow: true,
+          shadow: true,          
           data: puntos.filter((x:any)=> x.nivel === 1)
         }
       ] as any;
+
+      let fnGeneraGraficaDetalleProyeccionRedraw = (e: any) => {
+        if (e != undefined){
+          this.GeneraGraficaDetalleProyeccion(e, puntosDD)
+        }
+        else{
+          this.GeneraGraficaDetalleProyeccion("RAIZ", puntosDD)
+        }
+      } 
+
+      this.faltantePuntoEquilibrioGrafica.plotOptions!.series!.events = {
+        click: function(e){
+          var options = e.point.name;
+          if (options.toUpperCase().includes("SUCURSAL")){
+            fnGeneraGraficaDetalleProyeccionRedraw(options)
+          }
+        }        
+      }
+      this.faltantePuntoEquilibrioGrafica.chart!.events = {
+        redraw: function(e){
+          var options = this.series[0].userOptions.id;
+          fnGeneraGraficaDetalleProyeccionRedraw(options)
+        }
+      }
+
       this.faltantePuntoEquilibrioGrafica.title = {text:"PUNTO EQUILIBRIO"};
       this.faltantePuntoEquilibrioGrafica.yAxis = {title: {text: "MILES &nbsp; DE &nbsp; PESOS"}};
-      this.faltantePuntoEquilibrioGrafica.drilldown = {    
+      this.faltantePuntoEquilibrioGrafica.drilldown = {
         series: puntos.filter((x:any)=> x.nivel !== 1),
         activeDataLabelStyle:{
           textDecoration:'none',
@@ -730,7 +609,8 @@ export class VentasSegmentoComponent {
           color:'#000000',
         }
       };
-  
+      this.GeneraGraficaDetalleProyeccion("RAIZ", puntosDD);
+
       puntos = this.GeneraPuntosProyeccion(JSON.parse(Respuesta.UtilidadBruta));
       this.utilidadBrutaGrafica.series = [
         {
@@ -779,6 +659,131 @@ export class VentasSegmentoComponent {
       this.mostrarGraficas = false;
     }
   }  
+
+  public GeneraGraficaDetalleProyeccion(valor: string, puntos: any){
+    this.proyeccionDetalle = JSON.parse(JSON.stringify(this.graficasParametrizacionService.graficaBase));
+    let tipoGrafica = valor.split(" ");
+    let tituloGrafica = "";
+
+    let datosPD: iDatosGrafica[] = [{
+      color:'#f5564a',
+      name: 'Venta del mes',
+      tooltip: '',
+      y: 0
+    },
+    {
+      color:'#1db2f5',
+      name: 'Punto de equilibrio',
+      tooltip: 'Venta del mes: ',
+      y: 0
+    },
+    {
+      color:'#ffc720',
+      name: 'Venta - Punto de equilibrio',
+      tooltip: 'Venta del mes: ',
+      y: 0
+    }];
+
+    if (tipoGrafica[0].toUpperCase() === "RAIZ"){
+      tituloGrafica = puntos[0].name;
+      this.datosProyeccionDetalle.forEach((data: any)=>{
+        datosPD[0].y += data.Total;
+      });
+
+      datosPD[0].tooltip = "$" + Intl.NumberFormat('en-us', {maximumFractionDigits: 2}).format(datosPD[0].y);
+      datosPD[1].y = puntos[0].y;
+      datosPD[1].tooltip = "$" + Intl.NumberFormat('en-us', {maximumFractionDigits: 2}).format(datosPD[1].y);
+      datosPD[2].y = datosPD[0].y - datosPD[1].y;
+      datosPD[2].tooltip = "$" + Intl.NumberFormat('en-us', {maximumFractionDigits: 2}).format(datosPD[2].y);
+    }
+    else if (tipoGrafica[0].toUpperCase() === "ZONA"){
+      tituloGrafica = puntos[0].name;
+      this.datosProyeccionDetalle.forEach((data: any)=>{
+        datosPD[0].y += data.Total;
+      });
+
+      datosPD[0].tooltip = "$" + Intl.NumberFormat('en-us', {maximumFractionDigits: 2}).format(datosPD[0].y);
+      datosPD[1].y = puntos[0].y;
+      datosPD[1].tooltip = "$" + Intl.NumberFormat('en-us', {maximumFractionDigits: 2}).format(datosPD[1].y);
+      datosPD[2].y = datosPD[0].y - datosPD[1].y;
+      datosPD[2].tooltip = "$" + Intl.NumberFormat('en-us', {maximumFractionDigits: 2}).format(datosPD[2].y);
+/*       let nombrePlaza = puntos[1].data[0].name.toUpperCase();
+      tituloGrafica = nombrePlaza;
+      this.datosProyeccionDetalle.forEach((item: any)=>{
+        if (nombrePlaza === ("Plaza ".concat(item.Plaza)).toUpperCase()){
+          datosPD[0].y += item.Total;
+        }
+      });
+  
+      datosPD[0].tooltip = "$" + Intl.NumberFormat('en-us', {maximumFractionDigits: 2}).format(datosPD[0].y);
+      datosPD[1].y = puntos[1].data[0].y;
+      datosPD[1].tooltip = "$" + Intl.NumberFormat('en-us', {maximumFractionDigits: 2}).format(datosPD[1].y);
+      datosPD[2].y = datosPD[0].y - datosPD[1].y;
+      datosPD[2].tooltip = "$" + Intl.NumberFormat('en-us', {maximumFractionDigits: 2}).format(datosPD[2].y); */
+    }
+    else if (tipoGrafica[0].toUpperCase() === "PLAZA"){
+      let nombrePlaza = valor.toUpperCase();
+      tituloGrafica = nombrePlaza;
+      this.datosProyeccionDetalle.forEach((item: any)=>{
+        if (nombrePlaza === ("Plaza ".concat(item.Plaza)).toUpperCase()){
+          datosPD[0].y += item.Total;
+        }
+      });
+  
+      datosPD[0].tooltip = "$" + Intl.NumberFormat('en-us', {maximumFractionDigits: 2}).format(datosPD[0].y);
+      //atosPD[1].y = puntos[2].data[0].y;
+
+      puntos.forEach((l1: any) =>{
+        if (l1.data != undefined){
+          l1.data.forEach((item: any)=>{ 
+            if (item.name.toUpperCase() === nombrePlaza){
+              datosPD[1].y = item.y;
+            }
+          });
+        }
+      });
+
+      datosPD[1].tooltip = "$" + Intl.NumberFormat('en-us', {maximumFractionDigits: 2}).format(datosPD[1].y);
+      datosPD[2].y = datosPD[0].y - datosPD[1].y;
+      datosPD[2].tooltip = "$" + Intl.NumberFormat('en-us', {maximumFractionDigits: 2}).format(datosPD[2].y);
+    }
+    else if (tipoGrafica[0].toUpperCase() === "SUCURSAL"){
+      let nombrePlaza = valor.toUpperCase();
+      tituloGrafica = nombrePlaza;
+      this.datosProyeccionDetalle.forEach((item: any)=>{
+        if (nombrePlaza === ("Sucursal ".toUpperCase().concat(item.Sucursal))){
+          datosPD[0].y += item.Total;
+        }
+      });
+  
+      datosPD[0].tooltip = "$" + Intl.NumberFormat('en-us', {maximumFractionDigits: 2}).format(datosPD[0].y);
+      puntos.forEach((l1: any) =>{
+        if (l1.data != undefined){
+          l1.data.forEach((item: any)=>{ 
+            if (item.name.toUpperCase() === nombrePlaza){
+              datosPD[1].y = item.y;
+            }
+          });
+        }
+      });
+
+      datosPD[1].tooltip = "$" + Intl.NumberFormat('en-us', {maximumFractionDigits: 2}).format(datosPD[1].y);
+      datosPD[2].y = datosPD[0].y - datosPD[1].y;
+      datosPD[2].tooltip = "$" + Intl.NumberFormat('en-us', {maximumFractionDigits: 2}).format(datosPD[2].y);
+    }
+    
+    this.proyeccionDetalle.series =  [{
+      name: 'Mezcla',
+      type:'column',
+      colorByPoint: true,
+      tooltip:{followPointer:true},
+      data: datosPD
+    }];
+
+    this.proyeccionDetalle.title = {text:"VENTA / PUNTO EQUILIBRIO"};
+    this.proyeccionDetalle.yAxis = {title: {text: "MILES &nbsp; DE &nbsp; PESOS"}};
+    this.proyeccionDetalle.title = {text: tituloGrafica};
+  }
 
   /**
    * Acción: Obtiene información para generar la tabla de resultados

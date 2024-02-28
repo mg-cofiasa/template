@@ -19,10 +19,10 @@
             <div class="row p-2 ancho-cerrar-sesion">
               <div class="col-md-4 d-flex w-100 align-items-center justify-content-center p-0 m-0">
                 <span *ngIf="infoUsuario.UrlFoto; else SinFoto">
-                  <img alt="Imagen" class="rounded ancho-usuario-imagen" [src]="'http://172.16.1.28/FotosRH/' + infoUsuario.UrlFoto" />
+                  <img alt="Imagen" class="rounded ancho-usuario-imagen" [src]="urlMedia + 'FotosRH/' + infoUsuario.UrlFoto" />
                 </span>
                 <ng-template #SinFoto>
-                  <img src="assets/imgs/no_photo_secondary_01.png" class="rounded ancho-usuario-imagen" alt="User Image">
+                  <img [src]="urlMedia + 'imgs/no_photo_secondary_01.png'" class="rounded ancho-usuario-imagen" alt="User Image">
                 </ng-template>                
               </div>
               <div class="col-md-8">
