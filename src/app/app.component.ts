@@ -6,6 +6,8 @@ import { jwtDecode } from "jwt-decode";
 
 import { AppService } from './services/app.service';
 import { Subscription } from 'rxjs';
+import { InfoUsuario } from './auth/interfaces/token-response';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +15,9 @@ import { Subscription } from 'rxjs';
 })
 
 export class AppComponent implements OnInit, OnDestroy {
+  public urlMedia: string = environment.urlMedia;
   public isLoggedIn: boolean = false;
+  public infoUsuario: InfoUsuario = <InfoUsuario>{};
 
   private observableService$: Subscription = Subscription.EMPTY;
 
@@ -35,6 +39,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     let session = localStorage.getItem('UserAccessTokenMain');
 
+    this.infoUsuario = this.tokenService.ObtenerInfoUsuario();
     if (session){
 /*       let jwtObject: any = jwtDecode(session);
 

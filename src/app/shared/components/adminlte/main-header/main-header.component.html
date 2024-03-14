@@ -22,7 +22,7 @@
                   <img alt="Imagen" class="rounded ancho-usuario-imagen" [src]="urlFoto + 'FotosRH/' + infoUsuario.UrlFoto" />
                 </span>
                 <ng-template #SinFoto>
-                  <img src="assets/imgs/no_photo_secondary_01.png" class="rounded ancho-usuario-imagen" alt="User Image">
+                  <img [src]="urlMedia + 'imgs/no_photo_secondary_01.png'" class="rounded ancho-usuario-imagen" alt="User Image">
                 </ng-template>                
               </div>
               <div class="col-md-8">

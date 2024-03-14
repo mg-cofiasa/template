@@ -9,13 +9,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ApiLoginService } from '../../services/api-login.service';
 import { TokenResponse } from '../../interfaces/token-response';
 
-import { AppService } from './../../../services/app.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
 export class LoginComponent  {
+  public urlMedia: string = environment.urlMedia;
   public favIcon: HTMLLinkElement = document.querySelector('#favIcon')!;
   public cboEmpresaData: Empresa[] = [];
   public awaitingRequest: boolean = false;
@@ -91,10 +92,10 @@ export class LoginComponent  {
   public ChangeFavIcon() {
     let empresa = this.form["cboEmpresa"].value;
     if (empresa.id === "CFA"){
-      this.favIcon.href = './assets/imgs/favicon/favicon_cfa.png';
+      this.favIcon.href = this.urlMedia + 'favicon/favicon_cfa.png';
     }
     else{
-      this.favIcon.href = './assets/imgs/favicon/favicon_pda.png';
+      this.favIcon.href = this.urlMedia + 'favicon/favicon_pda.png';
     }
   }    
 }

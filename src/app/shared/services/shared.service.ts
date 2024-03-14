@@ -14,9 +14,9 @@ export class SharedService {
   public SwalModalAwaitServer(){
     Swal.fire({
       html:`<h2 class='p-2 d-inline-flex'>
-              <i class='fa-solid fa-spinner fa-spin' style='font-size:1.2em !important; color:#696cff !important;'></i>
+              <i class='fa-solid fa-spinner fa-spin' style='color:#696cff !important;'></i>
             </h2>
-            <div class='p-2 d-inline-flex' style='color:#696cff !important;'>Obteniendo información del servidor...</div>`,
+            <div class='p-2 d-inline-flex fuente-16' style='color:#696cff !important;'>Obteniendo información del servidor...</div>`,
       customClass:{
         popup:"sweet-alert-custom-info"
       },
