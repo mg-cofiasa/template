@@ -1,0 +1,140 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="card card-widget widget-user shadow" *ngIf="usuarioSeleccionado.Nombre !== undefined"><!-- Informacion del usuario -->
+      <div class="widget-user-header bg-info">
+        <h3 class="widget-user-username">{{usuarioSeleccionado.Nombre ? usuarioSeleccionado.Nombre : ''}}</h3>
+        <h5 class="widget-user-desc">{{usuarioSeleccionado.Departamento ? usuarioSeleccionado.Departamento : ''}}</h5>
+      </div>
+      <div class="widget-user-image">
+        <img [src]="'http://172.16.1.28/FotosRH/' + usuarioSeleccionado.UrlFoto" class="img-circle elevation-2 foto" alt="" *ngIf="usuarioSeleccionado.UrlFoto !== undefined">
+      </div>
+      <div class="card-footer">
+        <div class="row">
+          <div class="col-sm-4 border-right">
+            <div class="description-block">
+              <h5 class="description-header">{{usuarioSeleccionado.Zona ? usuarioSeleccionado.Zona : '-'}}</h5>
+              <span class="description-text">Zona</span>
+            </div>
+          </div>
+          <div class="col-sm-4 border-right">
+            <div class="description-block">
+              <h5 class="description-header">{{usuarioSeleccionado.Plaza ? usuarioSeleccionado.Plaza : '-'}}</h5>
+              <span class="description-text">Plaza</span>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="description-block">
+              <h5 class="description-header">{{usuarioSeleccionado.Sucursal ? usuarioSeleccionado.Sucursal : '-'}}</h5>
+              <span class="description-text">Sucursal</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>        
+    <form [formGroup]="formBusqueda" class="pt-4"><!-- Formulario de búsqueda -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <span class="p-float-label p-fluid">
+              <input type="text" pInputText formControlName="txtBuscarUsuario" placeholder="Buscar por usuario / nombre / número de personal" (keyup.enter)="BuscarUsuario()" [autofocus]="true" />
+              <label class="font-weight-normal">Buscar usuario</label>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-right">                            
+          <button pButton pRipple class="p-button-primary rounded font-weight-normal" (click)="BuscarUsuario()">
+            <span class="pl-1 pr-1">Buscar</span>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <p-divider></p-divider>
+
+    <p-table [value]="usuariosLista" styleClass="fuente-12 shadow-sm" selectionMode="single" [(selection)]="usuarioSeleccionado" (selectionChange)="AplicacionSeleccionadaRestablecer()" dataKey="Usuario" [metaKeySelection]="true" *ngIf="usuariosLista.length > 0" [scrollable]="true" scrollHeight="400px">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="Nombre" style="width:50%">Nombre <p-sortIcon field="Nombre"></p-sortIcon></th>
+          <th pSortableColumn="Usuario" style="width:25%">Usuario <p-sortIcon field="Usuario"></p-sortIcon></th>
+          <th pSortableColumn="Empresa" style="width:25%">Empresa <p-sortIcon field="Empresa"></p-sortIcon></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-usuario>
+        <tr [pSelectableRow]="usuario">
+          <td>{{usuario.Nombre}}</td>
+          <td>{{usuario.Usuario}}</td>
+          <td>{{usuario.Empresa}}</td>
+        </tr>
+      </ng-template>
+    </p-table>    
+  </div>
+  <div class="col-md-4">
+    <div *ngIf="usuarioSeleccionado.Nombre !== undefined">
+      <div>
+        <h2>&nbsp;</h2>
+      </div>
+      <p-table [value]="usuarioSeleccionado.Aplicacion" styleClass="fuente-12 shadow-sm" selectionMode="single" [(selection)]="aplicacionSeleccionada" (selectionChange)="ObtenerPermisosAplicacion()" dataKey="IdAplicacion" [metaKeySelection]="true">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="NombreAplicacion">Aplicaciones con acceso <p-sortIcon field="NombreAplicacion"></p-sortIcon></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-aplicacion>
+          <tr [pSelectableRow]="aplicacion">
+            <td>{{aplicacion.NombreAplicacion}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <form [formGroup]="formAgregarApp" class="pt-4 mt-2"><!-- Formulario de agregar aplicaciones -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <span class="p-float-label p-fluid">
+                <p-dropdown formControlName="cboAgregarApp" [options]="cboAplicacionesData" placeholder="Seleccionar aplicación" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true" (onChange)="AgregarApp()"></p-dropdown>
+                <label class="font-weight-normal">Seleccionar aplicación</label>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 text-right">                            
+            <button pButton pRipple class="p-button-primary rounded font-weight-normal" (click)="AplicacionArbolPermisos()">
+              <span class="pl-1 pr-1">Asignar aplicación</span>
+            </button>
+          </div>
+        </div>
+      </form>      
+    </div>
+  </div>  
+  <div class="col-md-4">
+    <div *ngIf="arbolMenu.length > 0">
+      <div class="mb-2 text-right">
+        <p-button styleClass="rounded mr-1" size="small" (click)="ExpandirTodo()" [link]="true" icon="fa-solid fa-expand" iconPos="left" label="Expandir" *ngIf="expandir === false"></p-button>
+        <p-button styleClass="rounded ml-1 mr-1" size="small" (click)="ContraerTodo()" [link]="true" icon="fa-solid fa-compress" iconPos="left" label="Contraer" *ngIf="expandir === true"></p-button>
+        <p-button styleClass="rounded ml-1 mr-1" size="small" severity="danger" (click)="ObtenerPermisosAplicacion()">Cancelar</p-button>
+        <p-button styleClass="rounded ml-1" size="small" severity="success" (click)="GuardarAplicacionOpciones()">Guardar</p-button>
+      </div>
+      <div class="rounded pt-2" *ngIf="cboAplicacioRolesData !== null && cboAplicacioRolesData.length > 0">
+        <form [formGroup]="formRoles"><!-- Formulario de roles -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <span class="p-float-label p-fluid">
+                  <p-dropdown formControlName="cboAppRoles" [options]="cboAplicacioRolesData" placeholder="Seleccionar rol" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true" (onChange)="AppAplicarRol()"></p-dropdown>
+                  <label class="font-weight-normal">Seleccionar rol</label>
+                </span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <p-tree [value]="arbolMenu" [selection]="opcionesSeleccionadas" selectionMode="checkbox" styleClass="fuente-12 border-0 p-1 shadow-sm" (onNodeSelect)="AgregarNodo($event)" (onNodeUnselect)="EliminarNodo($event)"></p-tree>
+    </div>
+  </div>  
+</div>
+
+<p-toast></p-toast>
+<p-toast key="toast-cc" position="top-center"></p-toast>

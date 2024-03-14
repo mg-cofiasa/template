@@ -5,6 +5,7 @@ import { DataService } from 'src/app/shared/services/data.service';
 import { InfoUsuario } from 'src/app/auth/interfaces/token-response';
 import { TokenService } from 'src/app/auth/services/token.service';
 import { UsuarioMenu, breadcrum } from 'src/app/shared/interfaces/shared';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-main-sidebar',
@@ -12,6 +13,8 @@ import { UsuarioMenu, breadcrum } from 'src/app/shared/interfaces/shared';
   styleUrls: ['./main-sidebar.component.scss']
 })
 export class MainSidebarComponent {
+  public urlMedia: string = environment.urlMedia;
+  public urlFoto: string = environment.urlFoto;
   public infoUsuario: InfoUsuario = <InfoUsuario>{};
   public menuLateral: UsuarioMenu[] = [];
   public breadcrum: breadcrum = <breadcrum>{};
@@ -63,4 +66,11 @@ export class MainSidebarComponent {
   public Breadcrum(breadcrum: breadcrum){
     this.dataService.setOpcionSeleccionada(breadcrum);
   }
+
+  /**
+   * Comentario: Cierra la sesión actuañ
+   */
+  public CerrarSesion(){
+    this.tokenService.CerrarSesion();
+  }  
 }

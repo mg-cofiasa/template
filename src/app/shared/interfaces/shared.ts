@@ -22,3 +22,8 @@ export interface breadcrum{
   nivel01: string;
   nivel02: string;
 }
+
+export interface iCatalogoIdCadena{
+  Id: string;
+  Nombre: string;
+}

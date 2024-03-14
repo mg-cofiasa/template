@@ -10,6 +10,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
+import { TreeModule } from 'primeng/tree';
 import { DividerModule } from 'primeng/divider';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -42,8 +43,7 @@ import { RippleModule } from 'primeng/ripple';
     RippleModule,
     MessageModule,
     MessagesModule,
-
-
+    TreeModule,
     AccordionModule,
     AutoCompleteModule,
 

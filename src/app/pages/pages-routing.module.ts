@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from '../auth/services/auth.guard';
-import { VentasComponent } from './ventas/ventas/ventas.component';
-import { VentasSegmentoComponent } from './ventas/ventas-segmento/ventas-segmento.component';
-import { VentasTendenciaComponent } from './ventas/ventas-tendencia/ventas-tendencia.component';
+
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { PermisosComponent } from './permisos/permisos.component';
 
 const routes: Routes = [
   {
@@ -22,20 +21,10 @@ const routes: Routes = [
       //  canActivate: [AuthGuard]
       },
       {
-        path: 'ventas',
-        component: VentasComponent,
+        path: 'permisos',
+        component: PermisosComponent,
       //  canActivate: [AuthGuard]
       },
-      {
-        path: 'ventas-segmento',
-        component: VentasSegmentoComponent,
-      //  canActivate: [AuthGuard]
-      },
-      {
-        path: 'ventas-tendencia',
-        component: VentasTendenciaComponent,
-      //  canActivate: [AuthGuard]
-      }  
     ]
   }
 ];

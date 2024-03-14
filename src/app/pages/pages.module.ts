@@ -9,16 +9,12 @@ import { HighchartsChartModule } from 'highcharts-angular';
 
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { VentasSegmentoComponent } from './ventas/ventas-segmento/ventas-segmento.component';
-import { VentasTendenciaComponent } from './ventas/ventas-tendencia/ventas-tendencia.component';
-import { VentasComponent } from './ventas/ventas/ventas.component';
+import { PermisosComponent } from './permisos/permisos.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    VentasComponent,
-    VentasSegmentoComponent,
-    VentasTendenciaComponent
+    PermisosComponent
   ],
   imports: [
     CommonModule,

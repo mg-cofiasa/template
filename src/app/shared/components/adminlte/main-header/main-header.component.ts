@@ -3,6 +3,7 @@ import { InfoCircleIcon } from 'primeng/icons/infocircle';
 import { InfoUsuario, TokenPayload } from 'src/app/auth/interfaces/token-response';
 
 import { TokenService } from 'src/app/auth/services/token.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-main-header',
@@ -12,6 +13,7 @@ import { TokenService } from 'src/app/auth/services/token.service';
 })
 export class MainHeaderComponent {
   public mostrarVentanaCerrarsesion: boolean = false;
+  public urlFoto: string = environment.urlFoto;
   public infoUsuario: InfoUsuario = <InfoUsuario>{};
 
   constructor(

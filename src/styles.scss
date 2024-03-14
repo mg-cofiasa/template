@@ -55,7 +55,11 @@
 //@import "primeng/resources/themes/luna-pink/theme.css";
 //@import "primeng/resources/themes/rhea/theme.css";
 
-
+.p-component {
+	box-sizing: border-box;
+	font-size: 14px;
+	line-height: 1rem;
+}
 
 
   //padding: 6px !important;
