@@ -6,44 +6,5 @@
       <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
     </li>
   </ul>
-
-  <!-- Right navbar links -->
-  <ul class="navbar-nav ml-auto">
-    <li class="nav-item dropdown">
-      <a class="nav-link" data-toggle="dropdown" href="#" (click)="mostrarVentanaCerrarsesion = !mostrarVentanaCerrarsesion">
-        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-      </a>
-      <p-dialog header="Header" styleClass="shadow-none" [modal]="true" [style]="{'top':'50px'}" [(visible)]="mostrarVentanaCerrarsesion" [position]="'topright'" appendTo="body" [closeOnEscape]="true" [dismissableMask]="true">
-        <ng-template pTemplate="headless" class="p-0">
-          <div class="shadow bg-white rounded">
-            <div class="row p-2 ancho-cerrar-sesion">
-              <div class="col-md-4 d-flex w-100 align-items-center justify-content-center p-0 m-0">
-                <span *ngIf="infoUsuario.UrlFoto; else SinFoto">
-                  <img alt="Imagen" class="rounded ancho-usuario-imagen" [src]="urlFoto + 'FotosRH/' + infoUsuario.UrlFoto" />
-                </span>
-                <ng-template #SinFoto>
-                  <img [src]="urlMedia + 'imgs/no_photo_secondary_01.png'" class="rounded ancho-usuario-imagen" alt="User Image">
-                </ng-template>                
-              </div>
-              <div class="col-md-8">
-                <div class="border-bottom">
-                  <h6>
-                    {{infoUsuario.Nombre}}
-                  </h6>
-                </div>
-                <div class="small pt-2 pb-0">
-                  {{infoUsuario.Puesto}}
-                </div>
-              </div>
-            </div>
-            <div class="border-bottom"></div>
-            <div class="p-2 d-flex align-items-center justify-content-center bg-login-transparent">
-              <p-button [text]="true" severity="primary" styleClass="rounded w-100 font-weight-normal" class="font-weight-normal" size="small" (onClick)="CerrarSesion()"><span style="font-size: 0.9em;">Cerrar sesión</span></p-button>
-            </div>
-          </div>
-        </ng-template>
-      </p-dialog>
-    </li>
-  </ul>
 </nav>
 <!-- /.navbar -->

@@ -29,6 +29,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from "primeng/message"; 
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 import { RippleModule } from 'primeng/ripple';
 
@@ -37,6 +38,7 @@ import { RippleModule } from 'primeng/ripple';
   declarations: [],
   exports: [
     ButtonModule,    
+    RadioButtonModule,
     DropdownModule,
     ConfirmPopupModule,
     CheckboxModule,

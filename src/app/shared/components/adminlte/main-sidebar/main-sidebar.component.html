@@ -2,13 +2,10 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4 fuente-16">
     <!-- Brand Logo -->
     <a routerLink="./main/dashboard" class="brand-link align-items-center d-flex">
-      <img [src]="infoUsuario.Empresa === 'CFA'? urlMedia + 'logos/prod/logo_cfa_blanco.png':urlMedia + 'logos/prod/logo_pda_blanco.png'" alt="Logo" [ngClass]="infoUsuario.Empresa === 'CFA'? 'img-circle elevation-3' : ''" class="brand-image logo pl-0 ml-0">
+      
       
       <div class="brand-text font-weight-light text-center w-100">
         <div class="p-0 m-0">
-          <span *ngIf="infoUsuario.Empresa === 'CFA'; else Pradesa">Cofiasa</span>
-          <ng-template #Pradesa>Pradesa</ng-template>
-          <span>&nbsp; - &nbsp;GPC</span>
         </div>
       </div>
     </a>
@@ -18,15 +15,8 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-2 pb-3 pt-0 mb-2 d-flex">
         <div class="image">
-          <span *ngIf="infoUsuario.UrlFoto; else SinFoto">
-            <img [src]="urlFoto + 'FotosRH/' + infoUsuario.UrlFoto" class="img-circle elevation-2 foto" alt="Foto">
-          </span>
-          <ng-template #SinFoto>
-            <img [src]="urlMedia + 'imgs/no_photo_01.png'" class="img-circle elevation-2 foto" alt="Foto">
-          </ng-template>
         </div>
         <div class="info d-flex align-items-center">
-          <a href="#" class="d-block">{{infoUsuario.Usuario}}</a>
         </div>
       </div>      
       <!-- Sidebar Menu -->
@@ -81,63 +71,8 @@
               </li>
             </ng-container>
           </ng-container>
-          <div class="divider-menu mt-2"></div>
-          <li class="nav-item">
-            <a href="#" routerLinkActive="active" class="nav-link" (click)="CerrarSesion()">
-              <i class="nav-icon fa-solid fa-arrow-right-from-bracket"></i>
-              <p>
-                Cerrar sesión
-              </p>
-            </a>
-          </li>          
+          <div class="divider-menu mt-2"></div>        
         </ul>
-
-<!-- Este menu comentado, muestra todas las aplicaciones con sus respectivas opciones -->
-<!--       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <ng-container *ngFor="let menu of menuLateral">
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon"></i>
-                <p>
-                  {{menu.Aplicacion}}
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <ng-container class="nav-item" *ngFor="let submenu of menu.Menu">
-                  <li class="nav-item" *ngIf="submenu.Contenedor === undefined">
-                    <a href="pages/widgets.html" class="nav-link">
-                      <i class="nav-icon {{submenu.Submenu[0].Icono}}"></i>
-                      <p>
-                        {{submenu.Submenu[0].Seccion}}
-                      </p>
-                    </a>
-                  </li>
-                  <li class="nav-item" *ngIf="submenu.Contenedor">
-                    <a href="#" class="nav-link">
-                      <i class="nav-icon {{submenu.Icono}}"></i>
-                      <p>
-                        {{submenu.Contenedor}}
-                        <i class="right fas fa-angle-left"></i>
-                      </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                      <li class="nav-item" *ngFor="let seccion of submenu.Submenu">
-                        <a href="pages/widgets.html" class="nav-link">
-                          <i class="nav-icon {{seccion.Icono}}"></i>
-                          <p>
-                            {{seccion.Seccion}}
-                          </p>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>                  
-                </ng-container>
-              </ul>
-            </li>
-          </ng-container>
-        </ul>-->        
       </nav>
       <!-- /.sidebar-menu -->
     </div>

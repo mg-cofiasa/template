@@ -5,30 +5,17 @@
 <app-main-footer></app-main-footer>
 <router-outlet></router-outlet> -->
 
-<div *ngIf="isLoggedIn; else noLogueado">
-  <!-- Preloader -->
-  <div class="preloader d-flex align-items-center">
-    <div class="text-center w-100">
-      <img [src]="infoUsuario.Empresa === 'CFA' ? urlMedia + 'logos/prod/logo_cfa_colores.png' : urlMedia + 'logos/prod/logo_pda_colores.png'" alt="Logo" class="logo-preload">
-    </div>
-  </div>
+<app-main-header></app-main-header>
+<app-main-sidebar></app-main-sidebar>
 
-  <app-main-header></app-main-header>
-  <app-main-sidebar></app-main-sidebar>
-  
-  <div class="content-wrapper fuente-14">
-    <app-breadcrum></app-breadcrum>
-    <div class="content">
-      <div class="container-fluid pt-4 pl-2 pr-2 pb-4">
-        <router-outlet></router-outlet>
-      </div>
+<div class="content-wrapper fuente-14">
+  <app-breadcrum></app-breadcrum>
+  <div class="content">
+    <div class="container-fluid pt-4 pl-2 pr-2 pb-4">
+      <router-outlet></router-outlet>
     </div>
   </div>
-  
-  <app-main-footer></app-main-footer>
-  <app-control-sidebar></app-control-sidebar>
 </div>
 
-<ng-template #noLogueado>
-  <router-outlet></router-outlet>
-</ng-template>
+<app-main-footer></app-main-footer>
+<app-control-sidebar></app-control-sidebar>

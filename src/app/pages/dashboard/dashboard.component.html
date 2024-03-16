@@ -1,36 +1,140 @@
-<p>dashboard works!</p>
-
 <div class="row">
-  <div class="col-md-3">
-    <div class="border rounded">
-      indicador 1
-    </div>
+  <div class="col-md-6">
+    <div class="row jumbotron m-1 p-4 bg-white shadow">
+      <div class="col-md-12">
+        <p-button (click)="AgregarEditarMeta('agregar', 0)" icon="pi pi-plus" label="Crear meta" styleClass="rounded mb-2" size="small"></p-button>
+
+        <p-table [value]="metasLista" selectionMode="single" [(selection)]="metaSeleccionada">
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="Fecha" style="width:80%">Nombre de la meta <p-sortIcon field="Fecha"></p-sortIcon></th>
+              <th pSortableColumn="Fecha" style="width:20%" class="text-center">Acciones <p-sortIcon field="Fecha"></p-sortIcon></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-meta>
+            <tr [pSelectableRow]="meta">
+              <td>
+                <div>
+                  <h6>
+                    {{meta.Nombre}}
+                  </h6>
+                </div>
+                <div style="font-size: 12px;">
+                  Fecha creada: {{meta.Fecha | date:'dd-MM-yyyy'}}
+                </div>
+              </td>
+              <td class="text-center">
+                <i class="pi pi-pencil text-primary pr-2" role="button" (click)="AgregarEditarMeta('editar', meta.Id)"></i>
+                <i class="pi pi-trash text-danger" role="button"></i>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table> 
+      </div>
+    </div>   
   </div>
-  <div class="col-md-3">
-    <div class="border rounded">
-      indicador 2
+  <div class="col-md-6">
+    <div class="row jumbotron m-1 p-4 bg-white shadow" *ngIf="metaSeleccionada">
+      <div class="col-md-12">
+        <p-button (click)="AgregarEditarTarea('agregar', 0, metaSeleccionada)" icon="pi pi-plus" label="Agregar tarea" styleClass="rounded mb-2 mr-1" size="small"></p-button>
+        <p-button icon="pi pi-check" label="Completar tarea" styleClass="rounded mb-2 mr-1" size="small"></p-button>
+        <p-button icon="pi pi-pencil" label="Editar tarea" styleClass="rounded mb-2 mr-1" size="small"></p-button>
+        <p-button icon="pi pi-trash" label="Eliminar tarea" styleClass="rounded mb-2" size="small"></p-button>
+
+        <p-table [value]="tareasLista" selectionMode="single" [(selection)]="tareaSeleccionada">
+          <ng-template pTemplate="header">
+            <tr>
+              <th pSortableColumn="Nombre" style="width:60%">Nombre de la meta <p-sortIcon field="Nombre"></p-sortIcon></th>
+              <th pSortableColumn="Fecha" style="width:20%" class="text-center">Fecha <p-sortIcon field="Fecha"></p-sortIcon></th>
+              <th pSortableColumn="Estado" style="width:20%" class="text-center">Estado <p-sortIcon field="Estado"></p-sortIcon></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-tarea>
+            <tr [pSelectableRow]="tarea">
+              <td>
+                <div>
+                  <p-radioButton name="tarea" value="tarea" [(ngModel)]="tarea" [inputId]="tarea.Id"></p-radioButton>
+                  {{tarea.Nombre}}
+                </div>
+              </td>
+              <td class="text-center">
+                  {{tarea.Fecha | date:'dd-MM-yyyy'}}
+              </td>
+              <td class="text-center">
+                <span [ngClass]="tarea.Estatus == 'Completada' ? 'text-success text-bold' : ''">
+                  {{tarea.Estatus}}
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table> 
+      </div>
     </div>
-  </div>
-  <div class="col-md-3">
-    <div class="border rounded">
-      indicador 3
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="border rounded">
-      indicador 4
-    </div>
-  </div>
+  </div>  
 </div>
-<div class="row gx-2 mt-4">
-  <div class="col-md-9">
-    <div class="border rounded">
-      mapa
+
+<!-- Dialog para registrar meta -->
+<p-dialog [(visible)]="metaDialog" [modal]="true" [style]="{ width: '30rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+  <ng-template pTemplate="headless">
+    <div class="bg-white rounded">
+      <div class="inline-flex align-items-center justify-content-center bg-info p-4">
+        <div class="lead">
+          <span class="font-bold white-space-nowrap">{{tituloDialogMeta}}</span>
+        </div>
+      </div>
+          
+      <div class="p-4">
+        <form [formGroup]="formMeta" class="pt-4">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <span class="p-float-label p-fluid">
+                  <input type="text" pInputText formControlName="txtMeta" placeholder="Nombre de la meta" [autofocus]="true" />
+                  <label class="font-weight-normal">Nombre de la meta</label>
+                </span>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="text-right pt-2">
+          <p-button label="Aecptar" styleClass="rounded p-button-success" [disabled]="formMeta.invalid"></p-button>&nbsp;
+          <p-button (click)="metaDialog = false" label="Cancelar" styleClass="rounded p-button-danger"></p-button>
+        </div>   
+      </div>   
     </div>
-  </div>
-  <div class="col-md-3">
-    <div class="border rounded">
-      gráficas
+  </ng-template>
+</p-dialog>
+
+<!-- Dialog para registrar tarea -->
+<p-dialog [(visible)]="tareaDialog" [modal]="true" [style]="{ width: '30rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+  <ng-template pTemplate="headless">
+    <div class="bg-white rounded">
+      <div class="inline-flex align-items-center justify-content-center bg-info p-4">
+        <div class="lead">
+          <span class="font-bold white-space-nowrap">{{tituloDialogTarea}}</span>
+        </div>
+      </div>
+          
+      <div class="p-4">
+        <form [formGroup]="formMeta" class="pt-4">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <span class="p-float-label p-fluid">
+                  <input type="text" pInputText formControlName="txtTarea" placeholder="Nombre de la meta" [autofocus]="true" />
+                  <label class="font-weight-normal">Nombre de la meta</label>
+                </span>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="text-right pt-2">
+          <p-button label="Aecptar" styleClass="rounded p-button-success" [disabled]="formMeta.invalid"></p-button>&nbsp;
+          <p-button (click)="tareaDialog = false" label="Cancelar" styleClass="rounded p-button-danger"></p-button>
+        </div>   
+      </div>   
     </div>
-  </div>
-</div>
+  </ng-template>
+</p-dialog>

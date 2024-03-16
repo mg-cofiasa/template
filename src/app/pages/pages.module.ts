@@ -9,12 +9,9 @@ import { HighchartsChartModule } from 'highcharts-angular';
 
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PermisosComponent } from './permisos/permisos.component';
-
 @NgModule({
   declarations: [
-    DashboardComponent,
-    PermisosComponent
+    DashboardComponent
   ],
   imports: [
     CommonModule,
