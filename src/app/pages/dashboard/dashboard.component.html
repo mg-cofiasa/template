@@ -4,7 +4,7 @@
       <div class="col-md-12">
         <p-button (click)="AgregarEditarMeta('agregar', 0)" icon="pi pi-plus" label="Crear meta" styleClass="rounded mb-2" size="small"></p-button>
 
-        <p-table [value]="metasLista" selectionMode="single" [(selection)]="metaSeleccionada">
+        <p-table [value]="metasLista" selectionMode="single" [(selection)]="metaSeleccionada" (onRowSelect)="GetTareas()" [metaKeySelection]="true">
           <ng-template pTemplate="header">
             <tr>
               <th pSortableColumn="Fecha" style="width:80%">Nombre de la meta <p-sortIcon field="Fecha"></p-sortIcon></th>
@@ -16,16 +16,24 @@
               <td>
                 <div>
                   <h6>
-                    {{meta.Nombre}}
+                    {{meta.nombre}}
                   </h6>
                 </div>
                 <div style="font-size: 12px;">
-                  Fecha creada: {{meta.Fecha | date:'dd-MM-yyyy'}}
+                  Fecha creada: {{meta.fechaCreacion | date:'dd-MM-yyyy'}}
                 </div>
+                <div class="pt-2">
+                  Tareas completadas: {{meta.concluidos}} / {{meta.total}}
+                </div>
+                <p-progressBar class="mt-2" [value]="meta.barra">
+                  <ng-template pTemplate="content" let-value> 
+                  <span>{{meta.concluidos}} / {{meta.total}}</span>    
+                  </ng-template>
+                </p-progressBar>
               </td>
               <td class="text-center">
-                <i class="pi pi-pencil text-primary pr-2" role="button" (click)="AgregarEditarMeta('editar', meta.Id)"></i>
-                <i class="pi pi-trash text-danger" role="button"></i>
+                <i class="pi pi-pencil text-primary pr-2" role="button" (click)="AgregarEditarMeta('editar', meta.idMeta)"></i>
+                <i class="pi pi-trash text-danger" role="button" (click)="DeleteMeta(meta.idMeta)"></i>
               </td>
             </tr>
           </ng-template>
@@ -37,9 +45,9 @@
     <div class="row jumbotron m-1 p-4 bg-white shadow" *ngIf="metaSeleccionada">
       <div class="col-md-12">
         <p-button (click)="AgregarEditarTarea('agregar', 0, metaSeleccionada)" icon="pi pi-plus" label="Agregar tarea" styleClass="rounded mb-2 mr-1" size="small"></p-button>
-        <p-button icon="pi pi-check" label="Completar tarea" styleClass="rounded mb-2 mr-1" size="small"></p-button>
-        <p-button icon="pi pi-pencil" label="Editar tarea" styleClass="rounded mb-2 mr-1" size="small"></p-button>
-        <p-button icon="pi pi-trash" label="Eliminar tarea" styleClass="rounded mb-2" size="small"></p-button>
+        <p-button icon="pi pi-check" label="Completar tarea" styleClass="rounded mb-2 mr-1" size="small" *ngIf="tareaSeleccionada" (click)="CompletarTarea(tareaSeleccionada.idTarea)"></p-button>
+        <p-button icon="pi pi-pencil" label="Editar tarea" styleClass="rounded mb-2 mr-1" size="small" *ngIf="tareaSeleccionada" (click)="AgregarEditarTarea('editar', tareaSeleccionada.idTarea, metaSeleccionada.idMeta)"></p-button>
+        <p-button icon="pi pi-trash" label="Eliminar tarea" styleClass="rounded mb-2" size="small" *ngIf="tareaSeleccionada" (click)="DeleteTarea(tareaSeleccionada.idTarea)"></p-button>
 
         <p-table [value]="tareasLista" selectionMode="single" [(selection)]="tareaSeleccionada">
           <ng-template pTemplate="header">
@@ -53,16 +61,16 @@
             <tr [pSelectableRow]="tarea">
               <td>
                 <div>
-                  <p-radioButton name="tarea" value="tarea" [(ngModel)]="tarea" [inputId]="tarea.Id"></p-radioButton>
-                  {{tarea.Nombre}}
+                  <p-radioButton name="tarea" [value]="tarea" [(ngModel)]="tareaSeleccionada" [inputId]="tarea.Id" (onClick)="SeleccionOpt($event)"></p-radioButton>
+                  {{tarea.nombre}}
                 </div>
               </td>
               <td class="text-center">
-                  {{tarea.Fecha | date:'dd-MM-yyyy'}}
+                  {{tarea.fechaCreacion | date:'dd-MM-yyyy'}}
               </td>
               <td class="text-center">
                 <span [ngClass]="tarea.Estatus == 'Completada' ? 'text-success text-bold' : ''">
-                  {{tarea.Estatus}}
+                  {{tarea.estatus}}
                 </span>
               </td>
             </tr>
@@ -89,7 +97,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <span class="p-float-label p-fluid">
-                  <input type="text" pInputText formControlName="txtMeta" placeholder="Nombre de la meta" [autofocus]="true" />
+                  <input type="text" pInputText formControlName="txtMeta" placeholder="Nombre de la meta" [autofocus]="true" (keydown.enter)="PostMeta()" />
                   <label class="font-weight-normal">Nombre de la meta</label>
                 </span>
               </div>
@@ -98,7 +106,7 @@
         </form>
 
         <div class="text-right pt-2">
-          <p-button label="Aecptar" styleClass="rounded p-button-success" [disabled]="formMeta.invalid"></p-button>&nbsp;
+          <p-button label="Aceptar" styleClass="rounded p-button-success" [disabled]="formMeta.invalid" (onClick)="PostMeta()"></p-button>&nbsp;
           <p-button (click)="metaDialog = false" label="Cancelar" styleClass="rounded p-button-danger"></p-button>
         </div>   
       </div>   
@@ -117,13 +125,13 @@
       </div>
           
       <div class="p-4">
-        <form [formGroup]="formMeta" class="pt-4">
+        <form [formGroup]="formTarea" class="pt-4">
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
                 <span class="p-float-label p-fluid">
-                  <input type="text" pInputText formControlName="txtTarea" placeholder="Nombre de la meta" [autofocus]="true" />
-                  <label class="font-weight-normal">Nombre de la meta</label>
+                  <input type="text" pInputText formControlName="txtTarea" placeholder="Nombre de la tarea" [autofocus]="true" />
+                  <label class="font-weight-normal">Nombre de la tarea</label>
                 </span>
               </div>
             </div>
@@ -131,7 +139,7 @@
         </form>
 
         <div class="text-right pt-2">
-          <p-button label="Aecptar" styleClass="rounded p-button-success" [disabled]="formMeta.invalid"></p-button>&nbsp;
+          <p-button label="Aceptar" styleClass="rounded p-button-success" [disabled]="formTarea.invalid" (onClick)="PostTarea()"></p-button>&nbsp;
           <p-button (click)="tareaDialog = false" label="Cancelar" styleClass="rounded p-button-danger"></p-button>
         </div>   
       </div>   

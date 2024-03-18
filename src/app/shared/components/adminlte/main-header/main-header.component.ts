@@ -9,10 +9,8 @@ import { environment } from 'src/environments/environment';
   
 })
 export class MainHeaderComponent {
-  public urlMedia: string = environment.urlMedia;
   public mostrarVentanaCerrarsesion: boolean = false;
-  public urlFoto: string = environment.urlFoto;
-
+  
   constructor() {
   }
 }

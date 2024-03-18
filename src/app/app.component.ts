@@ -12,7 +12,6 @@ import { environment } from 'src/environments/environment';
 })
 
 export class AppComponent implements OnInit {
-  public urlMedia: string = environment.urlMedia;
   public isLoggedIn: boolean = false;
 
   private observableService$: Subscription = Subscription.EMPTY;

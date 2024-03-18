@@ -4,16 +4,7 @@
 
 export const environment = {
   production: false,
-  appVersion: 'v8.1.7',
-  USERDATA_KEY: 'authf649fc9a5f55',
-  isMockEnabled: true,
-  apiUrl: 'https://localhost:44320/',
-  apiUrlIndicadores: 'https://localhost:44319/',
-  // apiUrl: 'http://172.16.1.28/ReunionesMejoraContinua/api/',
-  //apiUrl : 'http://172.16.1.28/PruebasActuales/Api/',
-  tkn: 'TokenPrincipal',
-  urlMedia: "http://172.16.1.28/media/",
-  urlFoto: "http://172.16.1.28/"
+  apiUrl: 'https://localhost:7199/'
 };
 
 /*

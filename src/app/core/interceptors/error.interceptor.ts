@@ -12,12 +12,12 @@ export class ErrorInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(req).pipe(
       catchError((error) => {
-        if ([400, 403, 404, 500].includes(error.status) && localStorage.getItem(environment.tkn)) {
+        if ([400, 403, 404, 500].includes(error.status)) {
           // TODO: Change for Refresh token
          
           this.errorHandler.handleError(error);
         }
-        else if ([401].includes(error.status) && !localStorage.getItem(environment.tkn)) {
+        else if ([401].includes(error.status)) {
           this.errorHandler.handleError(error);
         }
         else

@@ -11,8 +11,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./main-sidebar.component.scss']
 })
 export class MainSidebarComponent {
-  public urlMedia: string = environment.urlMedia;
-  public urlFoto: string = environment.urlFoto;
   public menuLateral: UsuarioMenu[] = [];
   public breadcrum: breadcrum = <breadcrum>{};
   

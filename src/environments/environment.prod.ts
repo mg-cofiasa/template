@@ -4,15 +4,7 @@
 
 export const environment = {
   production: true,
-  appVersion: 'v8.1.7',
-  USERDATA_KEY: 'authf649fc9a5f55',
-  isMockEnabled: true,
-  appThemeName: 'Metronic',
-  tkn: 'TokenPrincipal',
-  apiUrl: 'http://172.16.1.28/PruebasActuales/ApiGeneral/',
-  apiUrlIndicadores: 'http://172.16.1.28/PruebasActuales/ApiIndicadores/',
-  urlMedia: "http://172.16.1.28/media/",
-  urlFoto: "http://172.16.1.28/"
+  apiUrl: 'http://172.16.1.28/PruebasActuales/ApiGeneral/'
 };
 
 /*
