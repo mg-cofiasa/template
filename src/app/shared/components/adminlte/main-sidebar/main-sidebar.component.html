@@ -2,10 +2,11 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4 fuente-16">
     <!-- Brand Logo -->
     <a routerLink="./main/dashboard" class="brand-link align-items-center d-flex">
-      
+      Logo - 
       
       <div class="brand-text font-weight-light text-center w-100">
         <div class="p-0 m-0">
+          Nombre empresa
         </div>
       </div>
     </a>
@@ -14,7 +15,8 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-2 pb-3 pt-0 mb-2 d-flex">
-        <div class="image">
+        <div class="image text-white">
+          Imagen usuario
         </div>
         <div class="info d-flex align-items-center">
         </div>
@@ -22,56 +24,14 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <ng-container *ngFor="let menu of menuLateral">
-            <ng-container *ngIf="menu.Aplicacion === 'Administrador'">
-              <ng-container *ngFor="let submenu of menu.Menu">
-                <ng-container *ngIf="submenu.Contenedor === undefined">
-                  <li class="nav-item" *ngFor="let seccion of submenu.Submenu">
-                    <a routerLink="{{seccion.Ruta}}" routerLinkActive="active" class="nav-link">
-                      <i class="nav-icon {{seccion.Icono}}"></i>
-                      <p>
-                        {{seccion.Seccion}}
-                      </p>
-                    </a>
-                  </li>                
-                </ng-container>
-                <li class="nav-item" *ngIf="submenu.Contenedor" routerLinkActive="menu-open">
-                  <a href="#" class="nav-link">
-                    <i class="nav-icon {{submenu.Icono}}"></i>
-                    <p>
-                      {{submenu.Contenedor}}
-                      <i class="right fas fa-angle-left"></i>
-                    </p>
-                  </a>
-                  <ul class="nav nav-treeview">
-                    <li class="nav-item" *ngFor="let seccion of submenu.Submenu">
-                      <a routerLink="{{seccion.Ruta}}" routerLinkActive="active" class="nav-link pl-4">
-                        <i class="nav-icon {{seccion.Icono}}"></i>
-                        <p>
-                          {{seccion.Seccion}}
-                        </p>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ng-container>
-            </ng-container>
-          </ng-container>
-          <div class="divider-menu mb-2" *ngIf="menuLateral.length > 1"></div>
-          <ng-container *ngFor="let menu of menuLateral">
-            <ng-container *ngIf="menu.Aplicacion !== 'Administrador'">
-              <li class="nav-item">
-                <a href="{{menu.Ruta}}" routerLinkActive="active" class="nav-link">
-                  <i class="nav-icon {{menu.Icono}}"></i>
-                  <p>
-                    {{menu.Aplicacion}}
-                    <i class="pi pi-link right"></i>
-                  </p>
-                </a>
-              </li>
-            </ng-container>
-          </ng-container>
-          <div class="divider-menu mt-2"></div>        
+          <li class="nav-item">
+            <a routerLink="./main/dashboard" routerLinkActive="active" class="nav-link">
+              <i class="nav-icon pi pi-list"></i>
+              <p>
+                Control de metas
+              </p>
+            </a>
+          </li> 
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
