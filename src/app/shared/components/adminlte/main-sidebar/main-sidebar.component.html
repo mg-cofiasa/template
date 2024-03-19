@@ -19,7 +19,7 @@
       <div class="user-panel mt-2 pb-3 pt-0 mb-2 d-flex">
         <div class="image">
           <span *ngIf="infoUsuario.UrlFoto; else SinFoto">
-            <img [src]="urlMedia + 'FotosRH/' + infoUsuario.UrlFoto" class="img-circle elevation-2 foto" alt="Foto">
+            <img [src]="urlFoto + 'FotosRH/' + infoUsuario.UrlFoto" class="img-circle elevation-2 foto" alt="Foto">
           </span>
           <ng-template #SinFoto>
             <img [src]="urlMedia + 'imgs/no_photo_01.png'" class="img-circle elevation-2 foto" alt="Foto">

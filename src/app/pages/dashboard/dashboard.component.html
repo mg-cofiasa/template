@@ -1,14 +1,288 @@
-<p>dashboard works!</p>
-
-<div class="row">
+<!-- <div class="row">
   <div class="col-md-3">
-    <div class="border rounded">
-      indicador 1
+    <div class="border rounded p-0 m-0 shadow" style="background-color: #ffffff;">
+      <div class="card shadow-none p-0 m-0">
+        <div class="card-header p-0 m-0" style="border-bottom: 1px solid #ff638444;">
+          <div class="lead text-center pb-1">Venta por zona</div>
+        </div>
+        <div class="card-body">
+          <dx-pie-chart id="pie" type="doughnut" title="" palette="Soft Pastel" [dataSource]="populationByRegions">
+            <dxo-size [height]="100"></dxo-size>
+            <dxi-series argumentField="region">
+              <dxo-label [visible]="true" format="millions">
+                <dxo-connector [visible]="true"></dxo-connector>
+              </dxo-label>
+            </dxi-series>
+            <dxo-legend [margin]="0" horizontalAlignment="right" verticalAlignment="top"></dxo-legend>
+            <dxo-tooltip [enabled]="true" [customizeTooltip]="customizeTooltip" format="millions">
+            </dxo-tooltip>
+          </dx-pie-chart>
+        </div>
+        <div class="card-footer p-1 m-0 rounded-bottom" style="border-bottom: solid 1px #ff6384; color: #606060;">
+          <div class="row">
+            <div class="col-md-6">
+              Total:
+            </div>
+            <div class="col-md-6">
+              Utilidad:
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="col-md-3">
     <div class="border rounded">
-      indicador 2
+      <div class="border rounded p-0 m-0 shadow" style="background-color: #ffffff;">
+        <div class="card shadow-none p-0 m-0">
+          <div class="card-header p-0 m-0" style="border-bottom: 1px solid #42c3c344;">
+            <div class="lead text-center pb-1">Sucursal con más venta</div>
+          </div>
+          <div class="card-body">
+            <dx-chart id="chart" [dataSource]="userData" palette="Material">
+              <dxo-size [height]="100"></dxo-size>
+              <dxo-animation easing="easeOutCubic" [duration]="1500"></dxo-animation>
+              <dxo-title text="Sucursal" subtitle="subtitle"></dxo-title>
+              <dxo-common-series-settings argumentField="age" type="bar" valueField="number" [ignoreEmptyPoints]="true"
+                width="100px" [barWidth]="30">
+              </dxo-common-series-settings>
+              <dxo-series-template nameField="age"></dxo-series-template>
+            </dx-chart>
+          </div>
+          <div class="card-footer p-1 m-0 rounded-bottom" style="border-bottom: solid 1px #42c3c3; color: #606060;">
+            <div class="row">
+              <div class="col-md-6">
+                Venta hoy:
+              </div>
+              <div class="col-md-6">
+                Utilidad:
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="border rounded">
+      indicador 3
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="border rounded">
+      indicador 4
+    </div>
+  </div>
+</div> -->
+<div class="row">
+  <div class="col-md-8 p-0">
+    <div class="border rounded shadow">
+      <div id="map" style="height: 500px !important;"></div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <form [formGroup]="formBusqueda"><!-- Zona, plaza, sucursal, periodo -->
+      <div class="row"><!-- Filtros de busqueda -->
+        <div class="col-md-6">
+          <div class="form-group">
+            <span class="p-float-label p-fluid">
+              <p-dropdown formControlName="cboZona" [options]="cboZonaData" placeholder="Seleccionar zona" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true" (onChange)="PlazasPorZona()"></p-dropdown>
+              <label class="font-weight-normal">Seleccionar zona</label>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <span class="p-float-label p-fluid">
+              <p-dropdown formControlName="cboPlaza" [options]="cboPlazaData" placeholder="Seleccionar plaza" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true" (onChange)="SucursalesPorPlaza()"></p-dropdown>
+              <label class="font-weight-normal">Seleccionar plaza</label>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <span class="p-float-label p-fluid">
+              <p-dropdown formControlName="cboSucursal" [options]="cboSucursalData" placeholder="Seleccionar sucursal" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true"></p-dropdown>
+              <label class="font-weight-normal">Seleccionar sucursal</label>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <span class="p-float-label p-fluid">
+              <p-dropdown formControlName="cboPeriodo" [options]="cboPeriodoData" placeholder="Seleccionar periodo" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true"></p-dropdown>
+              <label class="font-weight-normal">Seleccionar periodo</label>
+            </span>
+          </div>
+        </div>        
+      </div>
+    </form>
+
+    <div class="row mt-2">
+      <div class="col-md-12">
+        <div class="border rounded p-0 m-0 shadow" style="background-color: #ffffff;">
+          <div class="card shadow-none p-0 m-0">
+            <div class="card-header p-0 m-0" style="border-bottom: 1px solid #ff638444;">
+              <div class="lead text-center pb-1">Venta por zona</div>
+            </div>
+            <div class="card-body">
+              <dx-pie-chart id="pie" type="doughnut" title="" palette="Soft Pastel" [dataSource]="populationByRegions">
+                <dxo-size [height]="100"></dxo-size>
+                <dxi-series argumentField="region">
+                  <dxo-label [visible]="true" format="millions">
+                    <dxo-connector [visible]="true"></dxo-connector>
+                  </dxo-label>
+                </dxi-series>
+                <dxo-legend [margin]="0" horizontalAlignment="right" verticalAlignment="top"></dxo-legend>
+                <dxo-tooltip [enabled]="true" [customizeTooltip]="customizeTooltip" format="millions">
+                </dxo-tooltip>
+              </dx-pie-chart>
+            </div>
+            <div class="card-footer p-1 m-0 rounded-bottom" style="background-color: #ff6384; color: #ffffff;">
+              <div class="row">
+                <div class="col-md-6">
+                  Total:
+                </div>
+                <div class="col-md-6">
+                  Utilidad:
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!--     <div class="row mt-2">
+      <div class="col-md-12">
+        <div class="border rounded">
+          <div class="border rounded p-0 m-0 shadow" style="background-color: #ffffff;">
+            <div class="card shadow-none p-0 m-0">
+              <div class="card-header p-0 m-0" style="border-bottom: 1px solid #42c3c344;">
+                <div class="lead text-center pb-1">Sucursal con más venta</div>
+              </div>
+              <div class="card-body">
+                <dx-chart id="chart" [dataSource]="userData" palette="Material">
+                  <dxo-size [height]="100"></dxo-size>
+                  <dxo-animation easing="easeOutCubic" [duration]="1500"></dxo-animation>
+                  <dxo-title text="Sucursal" subtitle="subtitle"></dxo-title>
+                  <dxo-common-series-settings argumentField="age" type="bar" valueField="number" [ignoreEmptyPoints]="true"
+                    width="100px" [barWidth]="30">
+                  </dxo-common-series-settings>
+                  <dxo-series-template nameField="age"></dxo-series-template>
+                </dx-chart>
+              </div>
+              <div class="card-footer p-1 m-0 rounded-bottom" style="background-color: #42c3c3; color: #ffffff;">
+                <div class="row">
+                  <div class="col-md-6">
+                    Venta hoy:
+                  </div>
+                  <div class="col-md-6">
+                    Utilidad:
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+<!--     <div class="border rounded">
+      <div class="card shadow-none p-0 m-0 border-0">
+        <div class="card-header p-0 m-0" style="background-color: #4ca7a2;">
+          <dx-chart palette="Violet" [dataSource]="countriesInfo">
+            <dxo-size [height]="240"></dxo-size>
+            <dxi-series [color]="'#ffffff'" *ngFor="let energy of energySources" [valueField]="energy.value"
+              [name]="energy.name">
+            </dxi-series>
+            <dxo-common-series-settings #seriesSettings argumentField="country" [type]="types[0]">
+            </dxo-common-series-settings>
+            <dxo-margin [bottom]="20"></dxo-margin>
+            <dxo-argument-axis [valueMarginsEnabled]="false" [tick]="{visible:false,opacity:1}"
+              [grid]="{visible:false,opacity:1}" discreteAxisDivisionMode="crossLabels">
+              <dxo-grid [visible]="false" [opacity]="1"></dxo-grid>
+            </dxo-argument-axis>
+            <dxo-legend verticalAlignment="bottom" horizontalAlignment="center" itemTextPosition="bottom">
+            </dxo-legend>
+            <dxo-title text="">
+              <dxo-subtitle text=""> </dxo-subtitle>
+            </dxo-title>
+            <dxo-tooltip [enabled]="true"></dxo-tooltip>
+          </dx-chart>
+        </div>
+        <div class="card-body">
+
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<!-- <div class="row">
+  <div class="col-md-3">
+    <div class="border rounded p-0 m-0 shadow" style="background-color: #ffffff;">
+      <div class="card shadow-none p-0 m-0">
+        <div class="card-header p-0 m-0" style="border-bottom: 1px solid #ff638444;">
+          <div class="lead text-center pb-1">Venta por zona</div>
+        </div>
+        <div class="card-body">
+          <dx-pie-chart id="pie" type="doughnut" title="" palette="Soft Pastel" [dataSource]="populationByRegions">
+            <dxo-size [height]="100"></dxo-size>
+            <dxi-series argumentField="region">
+              <dxo-label [visible]="true" format="millions">
+                <dxo-connector [visible]="true"></dxo-connector>
+              </dxo-label>
+            </dxi-series>
+            <dxo-legend [margin]="0" horizontalAlignment="right" verticalAlignment="top"></dxo-legend>
+            <dxo-tooltip [enabled]="true" [customizeTooltip]="customizeTooltip" format="millions">
+            </dxo-tooltip>
+          </dx-pie-chart>
+        </div>
+        <div class="card-footer p-1 m-0 rounded-bottom" style="border-bottom: solid 1px #ff6384; color: #606060;">
+          <div class="row">
+            <div class="col-md-6">
+              Total:
+            </div>
+            <div class="col-md-6">
+              Utilidad:
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="border rounded">
+      <div class="border rounded p-0 m-0 shadow" style="background-color: #ffffff;">
+        <div class="card shadow-none p-0 m-0">
+          <div class="card-header p-0 m-0" style="border-bottom: 1px solid #42c3c344;">
+            <div class="lead text-center pb-1">Sucursal con más venta</div>
+          </div>
+          <div class="card-body">
+            <dx-chart id="chart" [dataSource]="userData" palette="Material">
+              <dxo-size [height]="100"></dxo-size>
+              <dxo-animation easing="easeOutCubic" [duration]="1500"></dxo-animation>
+              <dxo-title text="Sucursal" subtitle="subtitle"></dxo-title>
+              <dxo-common-series-settings argumentField="age" type="bar" valueField="number" [ignoreEmptyPoints]="true"
+                width="100px" [barWidth]="30">
+              </dxo-common-series-settings>
+              <dxo-series-template nameField="age"></dxo-series-template>
+            </dx-chart>
+          </div>
+          <div class="card-footer p-1 m-0 rounded-bottom" style="border-bottom: solid 1px #42c3c3; color: #606060;">
+            <div class="row">
+              <div class="col-md-6">
+                Venta hoy:
+              </div>
+              <div class="col-md-6">
+                Utilidad:
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="col-md-3">
@@ -22,15 +296,41 @@
     </div>
   </div>
 </div>
-<div class="row gx-2 mt-4">
-  <div class="col-md-9">
-    <div class="border rounded">
-      mapa
+<div class="row mt-4">
+  <div class="col-md-9 p-0 m-0">
+    <div class="border rounded" style="height: 300px !important;">
+      <mgl-map class="w-100 h-100" [style]="'mapbox://styles/mapbox/streets-v9'" [zoom]="[9]" [center]="[-74.5, 40]">
+      </mgl-map>
     </div>
   </div>
   <div class="col-md-3">
     <div class="border rounded">
-      gráficas
+      <div class="card shadow-none p-0 m-0 border-0">
+        <div class="card-header p-0 m-0" style="background-color: #4ca7a2;">
+          <dx-chart palette="Violet" [dataSource]="countriesInfo">
+            <dxo-size [height]="240"></dxo-size>
+            <dxi-series [color]="'#ffffff'" *ngFor="let energy of energySources" [valueField]="energy.value"
+              [name]="energy.name">
+            </dxi-series>
+            <dxo-common-series-settings #seriesSettings argumentField="country" [type]="types[0]">
+            </dxo-common-series-settings>
+            <dxo-margin [bottom]="20"></dxo-margin>
+            <dxo-argument-axis [valueMarginsEnabled]="false" [tick]="{visible:false,opacity:1}"
+              [grid]="{visible:false,opacity:1}" discreteAxisDivisionMode="crossLabels">
+              <dxo-grid [visible]="false" [opacity]="1"></dxo-grid>
+            </dxo-argument-axis>
+            <dxo-legend verticalAlignment="bottom" horizontalAlignment="center" itemTextPosition="bottom">
+            </dxo-legend>
+            <dxo-title text="">
+              <dxo-subtitle text=""> </dxo-subtitle>
+            </dxo-title>
+            <dxo-tooltip [enabled]="true"></dxo-tooltip>
+          </dx-chart>
+        </div>
+        <div class="card-body">
+
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</div> -->

@@ -7,6 +7,11 @@ import { PagesRoutingModule } from './pages-routing.module';
 
 import { HighchartsChartModule } from 'highcharts-angular';
 
+import { DxChartModule } from 'devextreme-angular';
+import { DxSelectBoxModule } from 'devextreme-angular';
+import { DxPieChartModule } from 'devextreme-angular';
+/* import { NgxMapboxGLModule } from 'ngx-mapbox-gl'; */
+
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { VentasSegmentoComponent } from './ventas/ventas-segmento/ventas-segmento.component';
@@ -22,11 +27,18 @@ import { VentasComponent } from './ventas/ventas/ventas.component';
   ],
   imports: [
     CommonModule,
+    DxChartModule,
+    DxSelectBoxModule,
+    DxPieChartModule,
+    /* NgxMapboxGLModule, */
     PagesRoutingModule,
     PrimeNGModule,
     FormsModule,
     ReactiveFormsModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+/*     NgxMapboxGLModule.withConfig({
+      accessToken: 'pk.eyJ1IjoibWlndWVsZ2FsdmFuIiwiYSI6ImNsc2NieXBtcTBudTkya3QwZDM5Y3BmaWQifQ.OIJNxMQ9vlYnZBrkk9HfQA', // Optional, can also be set per map (accessToken input of mgl-map)
+    }) */
   ]
 })
 export class PagesModule { }

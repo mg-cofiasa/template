@@ -11,22 +11,6 @@
             <div class="col-md-2">
               <div class="form-group">
                 <span class="p-float-label p-fluid">
-                  <p-dropdown formControlName="cboTipoEjercicio" [options]="cboTipoEjercicioData" placeholder="Tipo ejercicio" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true" (onChange)="GetDatosGraficas('cboTipoEjercicio', $event, '')"></p-dropdown>
-                  <label class="font-weight-normal">Tipo ejercicio</label>
-                </span>
-              </div>
-            </div>            
-            <div class="col-md-2">
-              <div class="form-group" *ngIf="form['cboTipoEjercicio'].value !== null && form['cboTipoEjercicio'].value.Id === 2">
-                <span class="p-float-label p-fluid">
-                  <p-dropdown formControlName="cboPeriodo" [options]="cboPeriodoData" placeholder="Seleccionar periodo" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true" (onChange)="GetDatosGraficas('cboPeriodo', $event, '')"></p-dropdown>
-                  <label class="font-weight-normal">Seleccionar periodo</label>
-                </span>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="form-group">
-                <span class="p-float-label p-fluid">
                   <p-dropdown formControlName="cboZona" [options]="cboZonaData" placeholder="Seleccionar zona" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true" (onChange)="GetDatosGraficas('cboZona', $event, '')"></p-dropdown>
                   <label class="font-weight-normal">Seleccionar zona</label>
                 </span>
@@ -48,6 +32,22 @@
                 </span>
               </div>
             </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <span class="p-float-label p-fluid">
+                  <p-dropdown formControlName="cboTipoEjercicio" [options]="cboTipoEjercicioData" placeholder="Tipo ejercicio" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true" (onChange)="GetDatosGraficas('cboTipoEjercicio', $event, '')"></p-dropdown>
+                  <label class="font-weight-normal">Tipo ejercicio</label>
+                </span>
+              </div>
+            </div>            
+            <div class="col-md-2">
+              <div class="form-group" *ngIf="form['cboTipoEjercicio'].value !== null && form['cboTipoEjercicio'].value.Id === 2">
+                <span class="p-float-label p-fluid">
+                  <p-dropdown formControlName="cboPeriodo" [options]="cboPeriodoData" placeholder="Seleccionar periodo" [filter]="true" filterBy="Nombre" emptyFilterMessage="No hay elementos" emptyMessage="No hay elementos" optionLabel="Nombre" [showClear]="true" (onChange)="GetDatosGraficas('cboPeriodo', $event, '')"></p-dropdown>
+                  <label class="font-weight-normal">Seleccionar periodo</label>
+                </span>
+              </div>
+            </div>            
           </div>
 
           <div class="row pt-2 mt-2"><!-- Segmento, concepto, categoría -->
@@ -206,7 +206,7 @@
         <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA' : ''">{{form['chkProyeccionUtilidad'].value === false ? "Ppto Miles" : "Utilidad bruta miles"}}</th>
         <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA' : ''">{{form['chkProyeccionUtilidad'].value === false ? "Cumpl" : "Gastos mes"}}</th>
         <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA' : ''">{{form['chkProyeccionUtilidad'].value === false ? "Tend VTA" : "Utilidad de operación"}}</th>
-        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA' : ''">{{form['chkProyeccionUtilidad'].value === false ? "% Tend" : "Faltante punto equilibrio"}}</th>
+        <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA' : ''">{{form['chkProyeccionUtilidad'].value === false ? "% Tend" : "Punto equilibrio"}}</th>
         <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA-Ton' : ''" *ngIf="(form['cboTipoEjercicio'].value.Id === 2 && form['cboPeriodo'].value !== null && form['cboPeriodo'].value.Nombre === periodoActual) || form['chkProyeccionUtilidad'].value === true || form['cboTipoEjercicio'].value.Id === 1">{{form['chkProyeccionUtilidad'].value === false ? "VTA Ton Hoy" : "Mezcla otros aceros"}}</th>
         <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA-Ton' : ''">{{form['chkProyeccionUtilidad'].value === false ? "VTA Ton" : "Mezcla polvos"}}</th>
         <th class="text-center small" [ngClass]="form['chkProyeccionUtilidad'].value === false ? 'estilo-columna-VTA-Ton' : ''">{{form['chkProyeccionUtilidad'].value === false ? "Ppto Ton" : "Mezcla varilla"}}</th>

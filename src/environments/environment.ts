@@ -12,7 +12,8 @@ export const environment = {
   // apiUrl: 'http://172.16.1.28/ReunionesMejoraContinua/api/',
   //apiUrl : 'http://172.16.1.28/PruebasActuales/Api/',
   tkn: 'TokenPrincipal',
-  urlMedia: "http://172.16.1.28/media/"
+  urlMedia: "http://172.16.1.28/media/",
+  urlFoto: "http://172.16.1.28/"
 };
 
 /*

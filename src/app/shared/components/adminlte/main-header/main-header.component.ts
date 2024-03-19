@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 })
 export class MainHeaderComponent {
   public urlMedia: string = environment.urlMedia;
+  public urlFoto: string = environment.urlFoto;
   public mostrarVentanaCerrarsesion: boolean = false;
   public infoUsuario: InfoUsuario = <InfoUsuario>{};
 

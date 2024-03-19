@@ -11,7 +11,8 @@ export const environment = {
   tkn: 'TokenPrincipal',
   apiUrl: 'http://172.16.1.28/PruebasActuales/ApiGeneral/',
   apiUrlIndicadores: 'http://172.16.1.28/PruebasActuales/ApiIndicadores/',
-  urlMedia: "http://172.16.1.28/media/"
+  urlMedia: "http://172.16.1.28/media/",
+  urlFoto: "http://172.16.1.28/"
 };
 
 /*

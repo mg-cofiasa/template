@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 })
 export class MainSidebarComponent {
   public urlMedia: string = environment.urlMedia;
+  public urlFoto: string = environment.urlFoto;
   public infoUsuario: InfoUsuario = <InfoUsuario>{};
   public menuLateral: UsuarioMenu[] = [];
   public breadcrum: breadcrum = <breadcrum>{};

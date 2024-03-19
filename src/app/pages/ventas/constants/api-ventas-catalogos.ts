@@ -5,7 +5,7 @@ export const catalogoFormulas: iCatalogoFormulas[] = [
     id: "VtasMiles",
     titulo: "Vtas Miles Hoy",
     subtitulo: "Ventas realizadas del día actual en miles de pesos",
-    descripcion: ["Vtas Miles = Suma Total deVentas - Devoluciones"]
+    descripcion: ["Vtas Miles = Suma Total de Ventas - Devoluciones"]
   },
   {
     id: "VtasMiles",
@@ -15,15 +15,15 @@ export const catalogoFormulas: iCatalogoFormulas[] = [
   },
   {
     id: "VtasMiles",
-    titulo: "Pto Miles",
+    titulo: "Ppto Miles",
     subtitulo: " *Presupuesto asignado en miles de pesos",
-    descripcion: ["Pto Miles = Suma Total de Presupuesto Por Artículo"]
+    descripcion: ["Ppto Miles = Suma Total de Presupuesto Por Artículo"]
   },
   {
     id: "VtasMiles",
     titulo: "Cumpl",
     subtitulo: "% de cumplimiento o avance con respecto al presupuesto de ventas asignado",
-    descripcion: ["Cumpl = Vtas Miles / Pto Miles * 100"]
+    descripcion: ["Cumpl = Vtas Miles / Ppto Miles * 100"]
   },
   {
     id: "VtasMiles",
@@ -35,7 +35,7 @@ export const catalogoFormulas: iCatalogoFormulas[] = [
     id: "VtasMiles",
     titulo: "% Tend",
     subtitulo: "Tendencia o pronóstico en porcentaje de ventas en miles de pesos con respecto a volumen de ventas realizadas en los días anteriores",
-    descripcion: ["% Tend = Tend Vta / Pto Miles * 100"]
+    descripcion: ["% Tend = Tend Vta / Ppto Miles * 100"]
   },
   {
     id: "VtasTon",
@@ -51,15 +51,15 @@ export const catalogoFormulas: iCatalogoFormulas[] = [
   },
   {
     id: "VtasTon",
-    titulo: "Pto Ton",
+    titulo: "Ppto Ton",
     subtitulo: "Suma total de presupuesto asignado en miles de kilos",
-    descripcion: ["Pto Ton = Suma Total de Presupuesto Por Artículo"]
+    descripcion: ["Ppto Ton = Suma Total de Presupuesto Por Artículo"]
   },    
   {
     id: "VtasTon",
     titulo: "Cumpl",
     subtitulo: "% de cumplimiento o avance con respecto al presupuesto de kilos asignado",
-    descripcion: ["Cumpl = Vta Ton / Pto Ton * 100"]
+    descripcion: ["Cumpl = Vta Ton / Ppto Ton * 100"]
   },    
   {
     id: "VtasTon",
@@ -71,7 +71,7 @@ export const catalogoFormulas: iCatalogoFormulas[] = [
     id: "VtasTon",
     titulo: "% Tend",
     subtitulo: "Tendencia o pronóstico en porcentaje de ventas en miles de kilos con respecto a volumen de ventas realizadas en los días anteriores",
-    descripcion: ["% Tend = Tend Ton / Pto Ton * 100"]
+    descripcion: ["% Tend = Tend Ton / Ppto Ton * 100"]
   },    
   {
     id: "Mezcla",
@@ -81,9 +81,9 @@ export const catalogoFormulas: iCatalogoFormulas[] = [
   },    
   {
     id: "Mezcla",
-    titulo: "Ptop Mezcla",
+    titulo: "Ppto Mezcla",
     subtitulo: "Diversificación del presupuesto asignado",
-    descripcion: ["Ptop Mezcla = Valor Dinámico Asignado Por Administración"]
+    descripcion: ["Ppto Mezcla = Valor Dinámico Asignado Por Administración"]
   },
   {
     id: "UtilMiles",
@@ -93,15 +93,15 @@ export const catalogoFormulas: iCatalogoFormulas[] = [
   },
   {
     id: "UtilMiles",
-    titulo: "Pto Util.",
+    titulo: "Ppto Util.",
     subtitulo: "Presupuesto de utilidad en miles de pesos asignado",
-    descripcion: ["Pto Util. = Pto Miles - Pto Costo"]
+    descripcion: ["Ppto Util. = Ppto Miles - Ppto Costo"]
   },
   {
     id: "UtilMiles",
     titulo: "Cumpl",
     subtitulo: "% de cumplimiento o avance con respecto al presupuesto de utilidad asignado",
-    descripcion: ["Cumpl = Util. Miles / Pto Util. * 100"]
+    descripcion: ["Cumpl = Util. Miles / Ppto Util. * 100"]
   },
   {
     id: "UtilMiles",
@@ -113,7 +113,7 @@ export const catalogoFormulas: iCatalogoFormulas[] = [
     id: "UtilMiles",
     titulo: "% Tend",
     subtitulo: "Tendencia o pronóstico en porcentaje de utilidad en miles de pesos con respecto a volumen de ventas realizadas en los días anteriores",
-    descripcion: ["% Tend = Tend Util / Pto Util. * 100"]
+    descripcion: ["% Tend = Tend Util / Ppto Util. * 100"]
   },
   {
     id: "Margen",
@@ -123,15 +123,15 @@ export const catalogoFormulas: iCatalogoFormulas[] = [
   },
   {
     id: "Margen",
-    titulo: "Mrg Pto",
+    titulo: "Mrg Ppto",
     subtitulo: "Presupuesto asignado en % del margen",
-    descripcion: ["Mrg Pto = Pto Costo / Pto Miles - 1 * 100"]
+    descripcion: ["Mrg Ppto = Ppto Costo / Ppto Miles - 1 * 100"]
   },
   {
     id: "Margen",
     titulo: "Cumpl",
     subtitulo: "% de cumplimiento o avance del margen",
-    descripcion: ["Cumpl = Margen / Mrg Pto * 100"]
+    descripcion: ["Cumpl = Margen / Mrg Ppto * 100"]
   }
 ];
 
