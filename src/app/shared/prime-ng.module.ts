@@ -10,6 +10,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
+import { TreeModule } from 'primeng/tree';
 import { DividerModule } from 'primeng/divider';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -28,6 +29,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from "primeng/message"; 
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 import { RippleModule } from 'primeng/ripple';
 
@@ -36,14 +38,14 @@ import { RippleModule } from 'primeng/ripple';
   declarations: [],
   exports: [
     ButtonModule,    
+    RadioButtonModule,
     DropdownModule,
     ConfirmPopupModule,
     CheckboxModule,
     RippleModule,
     MessageModule,
     MessagesModule,
-
-
+    TreeModule,
     AccordionModule,
     AutoCompleteModule,
 
